@@ -14,6 +14,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { ClienteConsultaComponent } from './cliente/cliente-consulta/cliente-consulta.component';
 import { ClienteRegistroComponent } from './cliente/cliente-registro/cliente-registro.component';
 import { ClienteService } from './services/cliente.service';
+import { VentaRegistroComponent } from './venta/venta-registro/venta-registro.component';
+import { VentaConsultaComponent } from './venta/venta-consulta/venta-consulta.component';
+import { UsuarioConsultaComponent } from './usuario/usuario-consulta/usuario-consulta.component';
+import { UsuarioRegistroComponent } from './usuario/usuario-registro/usuario-registro.component';
+import { LoginComponent } from './usuario/login/login.component';
 
 
 @NgModule({
@@ -25,7 +30,12 @@ import { ClienteService } from './services/cliente.service';
     FetchDataComponent,
     PersonaConsultaComponent,
     ClienteConsultaComponent,
-    ClienteRegistroComponent
+    ClienteRegistroComponent,
+    VentaRegistroComponent,
+    VentaConsultaComponent,
+    UsuarioConsultaComponent,
+    UsuarioRegistroComponent,
+    LoginComponent
   ],
   imports: [
     

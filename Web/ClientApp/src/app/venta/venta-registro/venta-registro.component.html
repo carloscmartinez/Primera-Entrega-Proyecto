@@ -1,0 +1,55 @@
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card card-signin my-5">
+            <div class="card-body"> 
+              <h5 class="card-title text-center">Registo de Ventas</h5>
+              <form class="form-signin">
+                <!-- <h5 >Registo de Ventas</h5><br> -->
+                <!--<div class="form-label-group">
+                     <input type="text" id="numeroVenta" name="numeroVenta" [(ngModel)]="venta.numeroVenta" class="form-control" placeholder="Cedula" required>
+                    <label for="cedula">Numero de Venta</label>
+                  </div><br> -->
+                  <div class="form-label-group">
+                    <input type="date" id="fecha" name="fecha" [(ngModel)]="venta.fecha" class="form-control" placeholder="Fecha" required>
+                    <label for="fecha">Fecha</label>
+                  </div>
+  
+                <div class="form-label-group">
+                  <input type="text" id="idCliente" name="idCliente" [(ngModel)]="venta.idCliente" class="form-control" placeholder="Id del Cliente" required>
+                  <label for="idCliente">Id. Cliente</label>
+                </div>
+
+                <div class="form-label-group">
+                    <input type="number" id="numeroPaquetes" name="numeroPaquetes" [(ngModel)]="venta.numeroPaquetes" class="form-control" placeholder="Nº de Paquetes" required>
+                    <label for="numeroPaquetes">Nº Paquetes</label>
+                </div>
+
+                <div class="form-label-group">
+                    <input type="number" id="valorPaquete" name="valorPaquete" [(ngModel)]="venta.valorPaquete" class="form-control" placeholder="valor del Paquetes" required>
+                    <label for="valorPaquete">Valor Paquete</label>
+                </div>
+
+                <div class="form-label-group">
+                    <input type="number" id="totalVenta" name="totalVenta" [(ngModel)]="venta.totalVenta" class="form-control" placeholder="Total Venta" required>
+                    <label for="totalVenta">Total Venta</label>
+                </div><br>
+  
+               <!-- <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="customCheck1">
+                  <label class="custom-control-label" for="customCheck1">Remember password</label>
+                </div>-->
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="add()">Registrar</button>
+                <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="reset">Cancelar</button>
+                
+                <!--<button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+                <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+                -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </body>

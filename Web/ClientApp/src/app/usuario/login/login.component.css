@@ -1,24 +1,63 @@
-@import "~bootstrap/dist/css/bootstrap.css";
-/*@import "~bootstrap/scss/bootstrap";
-@import "~bootstrap/scss/bootstrap-reboot";
-@import "~bootstrap/scss/bootstrap-grid";*/
-/* You can add global styles to this file, and also import other style files */
-
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+ body{
+    /* margin: 40px; */
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    /* background: #34495e; */
+    
 }
-
-code {
-  color: #e01a76;
+.box{
+    
+    width: 400px;
+    padding: 40px;
+    position: center;
+    top: 50%;
+    left: 50%; 
+    margin: auto;
+    /* transform: translate(-50%,-50%); */
+    background:white;
+    border: 1px solid white;
+    border-color: #1861ac;
+    /* border-radius: 10px; */
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.1);
 }
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.box input{
+    text-align: left;
+    color: #495057;
+    font-size: 80%; 
+    margin: 30px auto;
 }
-
+.box h5{
+    color: #1b6ec2;
+    font-weight: 600;
+    text-align: center;
+    
+}
+.box button{
+    border: 0;
+    background: gray;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    /* border: 1px solid white; */
+    padding: 14px 10px;
+    /* width: 400px; */
+    outline: none;
+    color: white;
+    border-radius: 40px;
+    transition: 0.25s;
+    font-weight: bold;
+    font-size: 80%;
+}
+.box button[type = "submit"]{
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+} 
+/*--------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------*/
 /* registro */
 :root {
   --input-padding-x: 1.5rem;
@@ -35,7 +74,7 @@ code {
 .card-signin {
   border: 0;
   border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.1);
 }
 
 .card-signin .card-title {
