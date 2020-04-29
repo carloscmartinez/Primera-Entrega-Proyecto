@@ -8,15 +8,14 @@
             <form class="form-signin">
      <!-- <form class="box" > -->
                 <!-- <h5 >Registo de Usuarios</h5><br> -->
+                <div class="form-label-group">
+                  <input type="text" id="cedula" name="cedula" [(ngModel)]="usuario.cedula" class="form-control" placeholder="Cedula" required>
+                  <label for="cedula">Cedula</label>
+                </div>
 
                 <div class="form-label-group">
                   <input type="text" id="nombre" name="nombre" [(ngModel)]="usuario.nombre" class="form-control" placeholder="Nombre" required>
                   <label for="nombre">Nombre</label>
-                </div>
- 
-                <div class="form-label-group">
-                  <input type="text" id="nombreUsuario" name="idCliente" [(ngModel)]="usuario.nombreUsuario" class="form-control" placeholder="Usuario" required>
-                  <label for="nombreUsuario">Usuario</label>
                 </div>
 
                 <div class="form-label-group">

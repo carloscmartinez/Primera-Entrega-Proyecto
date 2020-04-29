@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Venta } from '../models/venta';
 
 @Component({
   selector: 'app-venta-registro',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./venta-registro.component.css']
 })
 export class VentaRegistroComponent implements OnInit {
-
+  venta: Venta;
   constructor() { }
 
   ngOnInit() {
+    this.venta = new Venta();
   }
 
 }

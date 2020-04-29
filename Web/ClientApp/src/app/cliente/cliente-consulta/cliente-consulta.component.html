@@ -1,30 +1,33 @@
 <body>
   
-
-<h1>Clientes</h1>
-
- <!-- <table class="customers" *ngIf='clientes && clientes.length'>
+  <div class="row">
+        <div class="col-6">
+        <h1>Clientes</h1>
+          <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Type to filter">
+        </div>
+      </div>
+      <hr>
+      <!-- <table class="table table-hover" >
         <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Cedula</th>
-            <th scope="col">Nombre </th>
-            <th scope="col">Telefono</th>
-          </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">identificación</th>
+                <th scope="col">Nombre </th>
+                <th scope="col">Telefono</th>
+              </tr>
         </thead>
         <tbody>
-        
-          <tr *ngFor="let cliente of clientes; index as i ">
-            <th scope="row">{{ i + 1 }}</th>
-            <td class="text-center">{{ cliente.cedula }} </td>
-            <td>{{ cliente.nombre }}</td>
-            <td class="text-right">{{ cliente.telefono  }}</td>
-          </tr>
+            <tr *ngFor="let cliente of clientes|filtroCliente:searchText; index as i ">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ cliente.cedula}} </td>
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.telefono  }}</td>
+              </tr>
         </tbody>
-      </table>-->
+      </table> -->
     
 
-    <table class="table table-hover">
+    <!-- <table class="table table-hover">
         <thead >
           <tr>
             <th scope="col">Nº</th>
@@ -53,8 +56,32 @@
             <td data-label="Telefono">33333333</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
       
-     <!-- <div class="table table-bordered">-->
+     <!-- <div class="table table-bordered">
+       
+    
+    <th scope="row">{{ i + 1 }}</th>
+            <td data-label="Cedula">{{ cliente.cedula }} </td>
+            <td data-label="Nombre">{{ cliente.nombre }}</td>
+            <td data-label="Telefono">{{ cliente.telefono }}</td>-->
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Id</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Telefono</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let cliente of clientes|filtroCliente:searchText; index as i">
+        <td data-label="Nº" scope="row">{{ i + 1 }}</td>
+        <td data-label="Cedula">{{ cliente.cedula | number }}</td>
+        <td data-label="Nombre">{{ cliente.nombre }}</td>
+        <td data-label="Telefono">{{ cliente.telefono }}</td>
+      </tr>
+      </tbody>
+    </table>
        
      </body>

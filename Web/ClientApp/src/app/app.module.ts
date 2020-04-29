@@ -19,6 +19,9 @@ import { VentaConsultaComponent } from './venta/venta-consulta/venta-consulta.co
 import { UsuarioConsultaComponent } from './usuario/usuario-consulta/usuario-consulta.component';
 import { UsuarioRegistroComponent } from './usuario/usuario-registro/usuario-registro.component';
 import { LoginComponent } from './usuario/login/login.component';
+import { NgbCollapse, NgbDropdown, NgbDropdownMenu,NgbDropdownToggle,NgbDropdownItem,NgbDropdownAnchor, NgbActiveModal, NgbModal, NgbModalRef, NgbModalConfig, NgbModalOptions, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { AlertModalComponent } from './@base/alert-modal/alert-modal.component';
+import { FiltroClientePipe } from './pipe/filtro-cliente.pipe';
 
 
 @NgModule({
@@ -35,7 +38,11 @@ import { LoginComponent } from './usuario/login/login.component';
     VentaConsultaComponent,
     UsuarioConsultaComponent,
     UsuarioRegistroComponent,
-    LoginComponent
+    LoginComponent,
+    AlertModalComponent,
+    FiltroClientePipe
+    // NgbCollapse,NgbDropdown,NgbDropdownMenu,NgbDropdownToggle,NgbDropdownItem,NgbDropdownAnchor, AlertModalComponent,
+    // NgbActiveModal,NgbModalConfig,NgbModalRef,NgbModal
   ],
   imports: [
     
@@ -47,8 +54,10 @@ import { LoginComponent } from './usuario/login/login.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ]),
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
+  entryComponents: [AlertModalComponent],
   providers: [ClienteService],
   bootstrap: [AppComponent]
 })
