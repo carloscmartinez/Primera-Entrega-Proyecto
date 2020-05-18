@@ -1,5 +1,6 @@
 export class Cliente {
-    cedula: string;
+    clienteId: string;
     nombre: string;
+    apellido: string;
     telefono: string;
 }

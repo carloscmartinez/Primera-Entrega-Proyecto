@@ -52,7 +52,11 @@
 
   /*responsive*/
   @media(max-width: 400px){
-      .table thead{
+    .table{
+        
+        border-collapse: collapse;
+    }  
+    .table thead{
           display: none;
       }
       .table, .table tbody, .table tr, .table td{

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Datos;
 using Entity;
 using Logica;
 using Microsoft.AspNetCore.Http;
@@ -16,12 +17,13 @@ namespace Web.Controllers
     public class ClienteController: ControllerBase
     {
         private readonly ClienteService _clienteService;
-        public IConfiguration Configuration { get; }
-        public ClienteController(IConfiguration configuration)
+        // public IConfiguration Configuration { get; }
+        public ClienteController(VentaContext context)
         {
-            Configuration = configuration;
+            _clienteService = new ClienteService(context);
+            /* Configuration = configuration;
             string connectionString = Configuration["ConnectionStrings:DefaultConnection"];
-            _clienteService = new ClienteService(connectionString);
+            _clienteService = new ClienteService(connectionString); */
         }
         // GET: api/Cliente
         [HttpGet]
@@ -38,8 +40,17 @@ namespace Web.Controllers
             Cliente cliente = MapearCliente(clienteInput);
             var response = _clienteService.Guardar(cliente);
             if (response.Error) 
-            {
-                return BadRequest(response.Mensaje);
+            {  
+                //------------------------------------------------------------------------------------
+                //Retornar los mensajes de validación adicionales en el mismo fomato que el ModalState
+                ModelState.AddModelError("Guardar Cliente", response.Mensaje);
+                var problemDetails = new ValidationProblemDetails(ModelState)
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                };
+                return BadRequest(problemDetails);
+                //------------------------------------------------------------------------------------
+                // return BadRequest(response.Mensaje);
             }
             return Ok(response.Cliente);
         }
@@ -48,8 +59,9 @@ namespace Web.Controllers
         {
             var cliente = new Cliente
             {
-                Cedula = clienteInput.Cedula,
+                ClienteId = clienteInput.ClienteId,
                 Nombre = clienteInput.Nombre,
+                Apellido = clienteInput.Apellido,
                 Telefono = clienteInput.Telefono,
                 
             };

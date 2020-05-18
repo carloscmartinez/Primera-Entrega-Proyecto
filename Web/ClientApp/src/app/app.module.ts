@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -22,6 +22,8 @@ import { LoginComponent } from './usuario/login/login.component';
 import { NgbCollapse, NgbDropdown, NgbDropdownMenu,NgbDropdownToggle,NgbDropdownItem,NgbDropdownAnchor, NgbActiveModal, NgbModal, NgbModalRef, NgbModalConfig, NgbModalOptions, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from './@base/alert-modal/alert-modal.component';
 import { FiltroClientePipe } from './pipe/filtro-cliente.pipe';
+import { VentaService } from './services/venta.service';
+import { ClienteModificarComponent } from './cliente/cliente-modificar/cliente-modificar.component';
 
 
 @NgModule({
@@ -40,12 +42,13 @@ import { FiltroClientePipe } from './pipe/filtro-cliente.pipe';
     UsuarioRegistroComponent,
     LoginComponent,
     AlertModalComponent,
-    FiltroClientePipe
+    FiltroClientePipe,
+    ClienteModificarComponent
     // NgbCollapse,NgbDropdown,NgbDropdownMenu,NgbDropdownToggle,NgbDropdownItem,NgbDropdownAnchor, AlertModalComponent,
     // NgbActiveModal,NgbModalConfig,NgbModalRef,NgbModal
   ],
   imports: [
-    
+    ReactiveFormsModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
@@ -58,7 +61,7 @@ import { FiltroClientePipe } from './pipe/filtro-cliente.pipe';
     NgbModule
   ],
   entryComponents: [AlertModalComponent],
-  providers: [ClienteService],
+  providers: [ClienteService, VentaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

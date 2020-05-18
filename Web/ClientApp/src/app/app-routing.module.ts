@@ -9,6 +9,7 @@ import { VentaRegistroComponent } from './venta/venta-registro/venta-registro.co
 import { UsuarioRegistroComponent } from './usuario/usuario-registro/usuario-registro.component';
 import { UsuarioConsultaComponent } from './usuario/usuario-consulta/usuario-consulta.component';
 import { LoginComponent } from './usuario/login/login.component';
+import { ClienteModificarComponent } from './cliente/cliente-modificar/cliente-modificar.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'clienteModificar',
+    component: ClienteModificarComponent
   },
 ];
 

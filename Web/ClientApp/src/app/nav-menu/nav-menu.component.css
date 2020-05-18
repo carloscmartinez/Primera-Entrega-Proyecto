@@ -14,13 +14,34 @@ html {
   }
   
 } 
-ul{
+/* ul{
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+} */
+
+/* .logo-nav-container{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  
 }
-
-
+.navigation{
+  background: black;
+  color: antiquewhite;
+}
+.navigation ul li{
+  display: block;
+  padding: 0.5rem 0.8rem;
+  color: aliceblue;
+}
+.navigation ul li:hover{
+  background: #111010;
+}
+.navigation ul li a{
+  
+  color: aliceblue;
+} */
 
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { VentaViewModel } from '../models/venta-view-model';
+import { VentaService } from 'src/app/services/venta.service';
 
 @Component({
   selector: 'app-venta-consulta',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./venta-consulta.component.css']
 })
 export class VentaConsultaComponent implements OnInit {
-
-  constructor() { }
+  ventaViewModels: VentaViewModel[];
+  constructor(private ventaService: VentaService) { }
 
   ngOnInit() {
+    this.ventaService.get().subscribe(result => {
+      this.ventaViewModels = result;
+    });
   }
 
 }

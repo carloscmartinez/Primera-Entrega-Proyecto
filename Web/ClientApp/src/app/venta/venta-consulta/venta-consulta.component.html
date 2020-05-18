@@ -1,8 +1,4 @@
 <body>
-  
-
-    <h1>Ventas</h1>
-    
      <!-- <table class="customers" *ngIf='clientes && clientes.length'>
             <thead>
               <tr>
@@ -24,7 +20,7 @@
           </table>-->
         
     
-        <table class="table table-hover">
+        <!-- <table class="table table-hover">
             <thead >
               <tr>
                 <th scope="col">Nº</th>
@@ -69,8 +65,47 @@
                 <td data-label="Total">30000000</td>
               </tr>
             </tbody>
-          </table>
+          </table> -->
           
-         <!-- <div class="table table-bordered">-->
+         <!-- <div class="table table-bordered">
            
-         </body>
+---------------------------------------------------------------------
+------------------------------------------------------------------------------->
+<div class="row">
+      <div class="col-6">
+      <h1>Ventas</h1>
+        <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Buscar">
+      </div>
+    </div>
+    <hr>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Id Venta</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Nº Paquetes</th>
+      <th scope="col">Valor Paquete</th>
+      <th scope="col">Total venta</th>
+      <th scope="col">Id Cliente</th>
+      <th scope="col">Nombre Cliente</th>
+      <th scope="col">Apellido Cliente</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ventaViewModel of ventaViewModels|filtroCliente:searchText; index as i">
+      <td data-label="Nº" scope="row">{{ i + 1 }}</td>
+      <td data-label="IdVenta">{{ ventaViewModel.ventaId | number }}</td>
+      <td data-label="Fecha">{{ ventaViewModel.fecha }}</td>
+      <td data-label="Numero Paquetes">{{ ventaViewModel.numeroPaquetes }}</td>
+      <td data-label="Valor Paquete">{{ ventaViewModel.valorPaquete }}</td>
+      <td data-label="Total Venta">{{ ventaViewModel.totalventa }}</td>
+      <td data-label="Id cliente">{{ ventaViewModel.clienteId | number }}</td>
+      <td data-label="Nombre"class="text-right">{{ ventaViewModel.nombre }}</td>
+      <td data-label="Apellido"class="text-right">{{ ventaViewModel.apellido }}</td>
+      <!-- <td><a routerLink="/taskedit/{{task.id}}">ver</a></td> -->
+    </tr>
+    </tbody>
+  </table>         
+</body>
