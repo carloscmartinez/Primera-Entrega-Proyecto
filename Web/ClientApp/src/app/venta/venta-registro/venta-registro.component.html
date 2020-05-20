@@ -4,16 +4,16 @@
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
           <div class="card card-signin my-5">
             <div class="card-body"> 
-              <h5 class="card-title text-center">Registo de Ventas</h5>
+              <h5 class="card-title text-center">Registro de Ventas</h5>
               <form class="form-signin" [formGroup]="formGroup">
                 <!-- <h5 >Registo de Ventas</h5><br> -->
-                <div class="form-label-group">
-                     <input type="text" id="ventaId" name="ventaId" formControlName="ventaId" class="form-control" placeholder="ventaId" required [ngClass]="{ 'is-invalid':  control.ventaId.errors}"/>
+                <!-- <div class="form-label-group">
+                     <input type="number" id="ventaId" name="ventaId" formControlName="ventaId" class="form-control" placeholder="ventaId" required [ngClass]="{ 'is-invalid':  control.ventaId.errors}"/>
                      <div *ngIf="control.ventaId.errors" class="invalid-feedback">           
                       <div *ngIf="control.ventaId.errors.required">Se require el Id Venta</div>
                     </div> 
                     <label for="ventaId">Numero de Venta</label>
-                  </div>
+                  </div> -->
                   <div class="form-label-group">
                     <input type="date" id="fecha" name="fecha" formControlName="fecha" class="form-control" placeholder="Fecha" required [ngClass]="{ 'is-invalid':  control.fecha.errors}"/>
                     <div *ngIf="control.fecha.errors" class="invalid-feedback">           
@@ -23,7 +23,7 @@
                   </div>
   
                 <div class="form-label-group">
-                  <input type="text" id="clienteId" name="clienteId" formControlName="clienteId" class="form-control" placeholder="Id del Cliente" required [ngClass]="{ 'is-invalid':  control.clienteId.errors}"/>
+                  <input type="number" id="clienteId" name="clienteId" formControlName="clienteId" class="form-control" placeholder="Id del Cliente" required [ngClass]="{ 'is-invalid':  control.clienteId.errors}"/>
                   <div *ngIf="control.clienteId.errors" class="invalid-feedback">           
                     <div *ngIf="control.clienteId.errors.required">Se require el Id del cliente</div>
                   </div>
@@ -46,17 +46,17 @@
                     <label for="valorPaquete">Valor Paquete</label>
                 </div>
 
-                <div class="form-label-group">
+                <!-- <div class="form-label-group">
                     <input type="number" id="totalVenta" name="totalVenta" formControlName="totalVenta" class="form-control" placeholder="Total Venta" required [ngClass]="{ 'is-invalid':  control.totalVenta.errors}"/>
                     <div *ngIf="control.totalVenta.errors" class="invalid-feedback">           
                       <div *ngIf="control.totalVenta.errors.required">Se require total Venta</div>
                     </div>
                     <label for="totalVenta">Total Venta</label>
-                </div><br>
+                </div><br> -->
                 <div class="form-group">
-                  <label>Total Venta</label>
+                  <label>Total Venta :  </label>
                   {{venta.totalVenta}}
-                </div>
+                </div><br>
   
                <!-- <div class="custom-control custom-checkbox mb-3">
                   <input type="checkbox" class="custom-control-input" id="customCheck1">

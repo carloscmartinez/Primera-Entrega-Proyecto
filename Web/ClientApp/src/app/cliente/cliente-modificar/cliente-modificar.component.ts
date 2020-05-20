@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { Cliente } from '../models/cliente';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-cliente-modificar',
@@ -6,51 +10,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cliente-modificar.component.css']
 })
 export class ClienteModificarComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
-/////////////////
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { TaskService } from '../services/task.service';
-import { Task } from '../models/task';
-import { Location } from '@angular/common';
-
-@Component({
-  selector: 'app-task-edit',
-  templateUrl: './task-edit.component.html',
-  styleUrls: ['./task-edit.component.css']
-})
-export class TaskEditComponent implements OnInit {
-  task:Task;
+  cliente:Cliente;
   stask:string;
-
   constructor(
     private route: ActivatedRoute,
-    private taskService: TaskService,
+    private clienteService: ClienteService,
     private location: Location
   ) { }
 
   ngOnInit() {
-    this.get();
+     this.get();
   }
 
   get(): void {
-    const id =
-    +this.route.snapshot.paramMap.get('id');
-    this.taskService.get(id)
-    .subscribe(hero => this.task = hero);
+    // this.clienteService.getId(cliente.clienteId).subscribe(result => {
+    //   this.cliente = result}); 
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.clienteService.getId(id)
+    .subscribe(hero => this.cliente = hero);
     }
     update(): void {
-    this.taskService.update(this.task)
+    this.clienteService.update(this.cliente)
     .subscribe(() => this.goBack());
     }
     delete(): void {
-    this.taskService.delete(this.task)
+    this.clienteService.delete(this.cliente)
     .subscribe(() => this.goBack());
     }
     goBack(): void {
@@ -58,4 +42,10 @@ export class TaskEditComponent implements OnInit {
     }
 
 }
+/////////////////
+
+
+
+
+
 

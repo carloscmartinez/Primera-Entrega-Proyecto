@@ -12,7 +12,7 @@ namespace Web.Models
     public class VentaInputModel
     {
         [Required]
-        public string VentaId { get; set; }
+        public int VentaId { get; set; }
         // [DataType]
         [Required(ErrorMessage ="La fecha es requerida")]
         public DateTime Fecha { get; set; }
@@ -24,7 +24,7 @@ namespace Web.Models
         public float TotalVenta { get; set; }
              
         [RegularExpression(@"^[0-9]{7,10}$", ErrorMessage = "La identificacion del cliente es solo numeros de 7 a 10 digitos")]
-        public string ClienteId { get; set; }
+        public long ClienteId { get; set; }
        
     }
 

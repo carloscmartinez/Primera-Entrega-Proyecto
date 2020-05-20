@@ -96,14 +96,14 @@
     <tbody>
     <tr *ngFor="let ventaViewModel of ventaViewModels|filtroCliente:searchText; index as i">
       <td data-label="Nº" scope="row">{{ i + 1 }}</td>
-      <td data-label="IdVenta">{{ ventaViewModel.ventaId | number }}</td>
-      <td data-label="Fecha">{{ ventaViewModel.fecha }}</td>
-      <td data-label="Numero Paquetes">{{ ventaViewModel.numeroPaquetes }}</td>
-      <td data-label="Valor Paquete">{{ ventaViewModel.valorPaquete }}</td>
-      <td data-label="Total Venta">{{ ventaViewModel.totalventa }}</td>
-      <td data-label="Id cliente">{{ ventaViewModel.clienteId | number }}</td>
-      <td data-label="Nombre"class="text-right">{{ ventaViewModel.nombre }}</td>
-      <td data-label="Apellido"class="text-right">{{ ventaViewModel.apellido }}</td>
+      <td data-label="IdVenta"class="text-right">{{ ventaViewModel.ventaId | number }}</td>
+      <td data-label="Fecha"class="text-right">{{ ventaViewModel.fecha }}</td>
+      <td data-label="Numero Paquetes"class="text-right">{{ ventaViewModel.numeroPaquetes | number}}</td>
+      <td data-label="Valor Paquete"class="text-right">{{ ventaViewModel.valorPaquete | number}}</td>
+      <td data-label="Total Venta"class="text-right">{{ ventaViewModel.totalVenta | number}}</td>
+      <td data-label="Id cliente"class="text-right">{{ ventaViewModel.clienteId | number }}</td>
+      <td data-label="Nombre"class="text-left text-capitalize">{{ ventaViewModel.nombre }}</td>
+      <td data-label="Apellido"class="text-left text-capitalize">{{ ventaViewModel.apellido }}</td>
       <!-- <td><a routerLink="/taskedit/{{task.id}}">ver</a></td> -->
     </tr>
     </tbody>

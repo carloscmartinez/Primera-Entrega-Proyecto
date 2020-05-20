@@ -4,11 +4,11 @@
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-signin my-5">
           <div class="card-body">
-            <h5 class="card-title text-center">Registo de Clientes</h5>
+            <h5 class="card-title text-center">Registro de Clientes</h5>
             <form class="form-signin" [formGroup]="formGroup">
               
               <div class="form-label-group">
-                <input type="text" id="clienteId" name="clienteId" formControlName="clienteId" class="form-control" placeholder="clienteId" required
+                <input type="number" id="clienteId" name="clienteId" formControlName="clienteId" class="form-control" placeholder="clienteId" required
                 [ngClass]="{ 'is-invalid':  control.clienteId.errors}"
                 />
                 <div *ngIf="control.clienteId.errors" class="invalid-feedback">           
@@ -42,7 +42,7 @@
               </div><br>
 
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="onSubmit()"  [disabled]="formGroup.invalid">Registrar</button>
-              <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="reset">Cancelar</button>
+              <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="reset"(click)="onReset()">Cancelar</button>
             
             </form>
           </div>

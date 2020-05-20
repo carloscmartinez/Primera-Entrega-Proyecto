@@ -29,7 +29,7 @@ export class ClienteRegistroComponent implements OnInit {
   // }
   private buildForm() {
         this.cliente = new Cliente();
-        this.cliente.clienteId= '';
+        this.cliente.clienteId= 0;
         this.cliente.nombre = '';
         this.cliente.apellido= '';
         this.cliente.telefono = '';
@@ -57,8 +57,6 @@ export class ClienteRegistroComponent implements OnInit {
     }
       
       
-      
-
   add() {
     this.cliente= this.formGroup.value;
     this.clienteService.post(this.cliente).subscribe(p => {
@@ -73,6 +71,11 @@ export class ClienteRegistroComponent implements OnInit {
     });
     
   }
+
+  onReset() {
+    this.submitted = false;
+    this.formGroup.reset();
+}
 
 
 }

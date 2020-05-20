@@ -1,8 +1,8 @@
 export class Venta {
-    ventaId: string;
+    ventaId: number;
     fecha: Date;
     numeroPaquetes: number;
     valorPaquete: number;
     totalVenta: number; 
-    clienteId: string;  
+    clienteId: number;  
 }

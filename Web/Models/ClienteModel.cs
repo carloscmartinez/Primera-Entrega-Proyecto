@@ -10,7 +10,7 @@ namespace Web.Models
     public class ClienteInputModel
     {
         [Required]
-        public string ClienteId { get; set; }
+        public long ClienteId { get; set; }
         [Required(ErrorMessage ="El Nombre es requerido")]
         public string Nombre { get; set; }
         [Required(ErrorMessage ="El Apellido es requerido")]

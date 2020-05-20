@@ -45,7 +45,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'clienteModificar',
+    path: 'clienteModificar/:id',
     component: ClienteModificarComponent
   },
 ];

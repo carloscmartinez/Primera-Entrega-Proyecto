@@ -1,30 +1,45 @@
-<div *ngIf="task">
+<!-- <body>
+   <div class="container">
+       <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card card-signin my-5">
+            <div class="card-body"> -->
+              <!-- <h5 class="card-title text-center">Registo de Clientes</h5> 
+<form class="form-signin" >-->
+<div *ngIf="cliente">
     <div >
-    <h1 class="h2">Detalle Task</h1>
+    <h1 class="h2">Detalle Cliente</h1>
     </div>
-    <p>Editar/Eliminar Tareas</p>
+    <p>Editar Cliente</p>
     <div class="form-group">
-    <label>Id:
-    {{task.id}}
-    </label>
-    </div>
-    <div class="form-group">
-    <label>Titulo:
-    <input [(ngModel)]="task.title" class="form-control" placeholder="digite titulo" type="text"/>
-    </label>
+        <label>Id :  
+            {{cliente.clienteId}}
+        </label>
     </div>
     <div class="form-group">
-    <label>Descripción:
-    <input [(ngModel)]="task.description" class="form-control" placeholder="digite descripción " type="text" />
-    </label>
+        <label>Nombre
+            <input [(ngModel)]="cliente.nombre" class="form-control" placeholder="digite titulo" type="text"/>
+        </label>
     </div>
     <div class="form-group">
-    <label>Prioritario:
-    <input type="checkbox" class="form-control" [(ngModel)]="task.priority">
-    </label>
+        <label>Apellido
+            <input [(ngModel)]="cliente.apellido" class="form-control" placeholder="digite descripción " type="text" />
+        </label>
     </div>
     <div class="form-group">
-    <button (click)="update()" class="btn btn-primary">Actualizar</button>
-    <button (click)="delete()" class="btn btn-primary">Eliminar</button>
+        <label>Telefono
+          <input [(ngModel)]="cliente.telefono" class="form-control" placeholder="digite descripción " type="text" />
+        </label>
+     </div>
+    
+    <div class="form-group">
+        <button (click)="update()" class="btn btn-primary">Actualizar</button>
     </div>
-    </div>
+</div>
+<!-- </form>
+</div>
+</div>
+</div>
+</div> 
+</div>
+</body>-->

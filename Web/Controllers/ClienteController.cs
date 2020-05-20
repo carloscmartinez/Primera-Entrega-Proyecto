@@ -33,6 +33,28 @@ namespace Web.Controllers
             return clientes;
         }
 
+        // GET: api/Persona/5
+        [HttpGet("{identificacion}")]
+        public ActionResult<ClienteViewModel> Get(long identificacion)
+        {
+            var cliente = _clienteService.BuscarxIdentificacion(identificacion);
+            if (cliente == null) return NotFound();
+            var clienteViewModel = new ClienteViewModel(cliente);
+            return clienteViewModel;
+        }
+
+        //GET: api/Cliente/5
+        // [HttpGet("{id}")]
+        // public ActionResult<ClienteViewModel> GetCliente(long id)
+        // {
+        //     var cliente = await _context.Clientes.FindAsync(id)
+        //     if (cliente == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     return cliente;
+        // }
+
         // POST: api/Cliente
         [HttpPost]
         public ActionResult<ClienteViewModel> Post(ClienteInputModel clienteInput)
@@ -68,5 +90,39 @@ namespace Web.Controllers
             return cliente;
         
     }
+    // PUT: api/Persona/5
+        [HttpPut("{identificacion}")]
+        public ActionResult<string> Put(long identificacion, ClienteInputModel clienteInput)
+        {
+            if (identificacion != clienteInput.ClienteId)
+            {
+                return BadRequest();
+            }
+            Cliente cliente = MapearCliente(clienteInput);
+            var response = _clienteService.Actualizar(cliente);
+            return Ok(response);
+           /*  if (response.Error) 
+            {  
+                //------------------------------------------------------------------------------------
+                //Retornar los mensajes de validación adicionales en el mismo fomato que el ModalState
+                ModelState.AddModelError("Actualizae Cliente", response.Mensaje);
+                var problemDetails = new ValidationProblemDetails(ModelState)
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                };
+                return BadRequest(problemDetails);
+                //------------------------------------------------------------------------------------
+                // return BadRequest(response.Mensaje);
+            }
+            return Ok(response.Cliente);
+            //------------------------------------- */
+             
+
+            // _context.Entry(clienteInput).State = EntityState.Modified;
+
+           
+        }
     }
+
+    
 }
