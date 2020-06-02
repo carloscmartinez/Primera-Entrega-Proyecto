@@ -1,3 +1,4 @@
+using System.Net.Http;
 using Datos;
 using Entity;
 using System;
@@ -56,5 +57,35 @@ namespace Logica
         public string Mensaje { get; set; }
         public Cliente Cliente { get; set; }
     }
+
+    public Cliente BuscarxIdentificacion(long identificacion)
+        {
+            Cliente cliente = _context.Clientes.Find(identificacion);
+            return cliente;
+           
+        }
+
+    public Cliente Actualizar(Cliente item)
+      {
+          _context.Entry(_context.Clientes.FirstOrDefault(x => x.ClienteId == item.ClienteId)).CurrentValues.SetValues(item);
+         _context.SaveChanges();
+        //  _
+            // _context.Clientes.Entry(item).State = EntityState.Modified;
+            // _context.SaveChanges();
+            return item;
+        //   try
+        //   {
+        //       var clienteModificado = _context.Clientes.FirstOrDefault(item => item.ClienteId == cliente.ClienteId);
+        //       clienteModificado=cliente;
+              
+        //       _context.SaveChanges();
+        //       return new GuardarClienteResponse(cliente);
+        //   }
+        //   catch (Exception e)
+        //   {
+        //       return new GuardarClienteResponse($"Error de la aplicacion: {e.Message}");
+        //   }
+      }
+
     }
 }

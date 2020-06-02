@@ -3,7 +3,11 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { Cliente } from '../models/cliente';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from 'src/app/@base/alert-modal/alert-modal.component';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors  } from '@angular/forms';
+import { tap, catchError, map } from 'rxjs/operators';
+import { Observable, of, observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-cliente-registro',
@@ -44,9 +48,37 @@ export class ClienteRegistroComponent implements OnInit {
     get control() { 
       return this.formGroup.controls;
     }
-    // onResetForm(){
-    //   this.formGroup.reset();
+
+// function passwordMatchValidator(g: FormGroup) {
+//    return g.get('password').value === g.get('passwordRepeat').value
+//       ? null : {'mismatch': true};
+// }
+    //buscar el cliente 
+
+    // validaId(ctrl: AbstractControl) {
+    //   return (
+    //     this.buscarCliente(ctrl.value).pipe(map(taken => taken ? { taken: true } : null))
+    //   )
     // }
+    // validateEmailNotTaken(ctrl: AbstractControl) {
+    //   return (
+    //     this
+    //      .checkForExists(ctrl.value)
+    //      .pipe(map(taken => taken ? { taken: true } : null))
+    //   )
+    // }
+
+    /* validaId(ctrl: AbstractControl) {
+      const n = ctrl.value;
+     
+       if(n!=null){
+        this.clienteService.getId(n).subscribe(cliente => cliente ?{ cliente: true} : null)
+                           
+       };
+      
+       return null;
+   } */
+      
     onSubmit() {
       this.submitted = true;
        if (this.formGroup.invalid) {

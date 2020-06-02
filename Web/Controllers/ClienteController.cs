@@ -37,10 +37,18 @@ namespace Web.Controllers
         [HttpGet("{identificacion}")]
         public ActionResult<ClienteViewModel> Get(long identificacion)
         {
+            //var clienteViewModel: ClienteViewModel();
             var cliente = _clienteService.BuscarxIdentificacion(identificacion);
-            if (cliente == null) return NotFound();
-            var clienteViewModel = new ClienteViewModel(cliente);
-            return clienteViewModel;
+            if (cliente == null) 
+            {
+                var clienteViewModel = new ClienteViewModel();
+                clienteViewModel=null;
+                return clienteViewModel;
+            }else{
+                var clienteViewModel = new ClienteViewModel(cliente);
+                return clienteViewModel;
+            }
+            
         }
 
         //GET: api/Cliente/5

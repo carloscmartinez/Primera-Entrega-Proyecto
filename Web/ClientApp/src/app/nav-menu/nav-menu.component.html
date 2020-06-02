@@ -79,7 +79,7 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="'usuarioRegistro'" (click)="isMenuCollapsed = true">Registro Usuario</a>
       </li> -->
-      <li ngbDropdown class="nav-item">
+      <li ngbDropdown class="nav-item" *ngIf="currentUser">
         <a href (click)="false" class="nav-link" ngbDropdownToggle>Usuarios</a>
         <div ngbDropdownMenu>
           <a ngbDropdownItem [routerLink]="'usuarioConsulta'" (click)="isMenuCollapsed = true"> Consulta de Usuarios</a>
@@ -89,22 +89,25 @@
           <button ngbDropdownItem>Separated link</button> -->
         </div>
       </li>
-      <li ngbDropdown class="nav-item">
+      <li ngbDropdown class="nav-item" *ngIf="currentUser">
         <a href (click)="false" class="nav-link" ngbDropdownToggle>Clientes</a>
         <div ngbDropdownMenu>
           <a ngbDropdownItem [routerLink]="'clienteConsulta'" (click)="isMenuCollapsed = true"> Consulta de Clientes</a>
           <a ngbDropdownItem [routerLink]="'clienteRegistro'" (click)="isMenuCollapsed = true"> Registro de Clientes</a> 
         </div>
       </li>
-      <li ngbDropdown class="nav-item">
+      <li ngbDropdown class="nav-item" *ngIf="currentUser">
         <a href (click)="false" class="nav-link" ngbDropdownToggle>Ventas</a>
         <div ngbDropdownMenu>
           <a ngbDropdownItem [routerLink]="'ventaConsulta'" (click)="isMenuCollapsed = true"> Consulta de Ventas</a>
           <a ngbDropdownItem [routerLink]="'ventaRegistro'" (click)="isMenuCollapsed = true"> Registro de Ventas</a> 
         </div>
       </li>
-      <li class="nav-item active  "id="login">
+      <li class="nav-item active  "id="login" *ngIf="!currentUser">
         <a class="nav-link " [routerLink]="'login'" (click)="isMenuCollapsed = true">Iniciar Sesion</a>
+      </li>
+      <li class="nav-item active  "id="logout" *ngIf="currentUser">
+        <a class="nav-link " (click)="isMenuCollapsed = true" (click)="logout()">Cerrar Sesion</a>
       </li>
     </ul>
   </div>

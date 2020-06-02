@@ -23,17 +23,31 @@
                   </div>
   
                 <div class="form-label-group">
-                  <input type="number" id="clienteId" name="clienteId" formControlName="clienteId" class="form-control" placeholder="Id del Cliente" required [ngClass]="{ 'is-invalid':  control.clienteId.errors}"/>
+                  <input type="number" id="clienteId" name="clienteId" formControlName="clienteId" class="form-control" placeholder="Id del Cliente" (blur)="buscarCliente()" (dblclick)="openModalCliente()" required [ngClass]="{ 'is-invalid':  control.clienteId.errors}"/>
                   <div *ngIf="control.clienteId.errors" class="invalid-feedback">           
                     <div *ngIf="control.clienteId.errors.required">Se require el Id del cliente</div>
+                    <!-- <div *ngIf="control.numeroPaquetes.errors.min">Se require el Id del cliente</div> -->
                   </div>
                   <label for="clienteId">Id. Cliente</label>
+                  <div class="col-md-1">
+                    <label> </label>
+                    <button class="btn btn-primary" type="button" (click)="openModalCliente()">...</button>
+                  </div>
+                  <div class="form-label-group">
+                    <label >Nombres:</label>
+                    <input type="text" readonly formControlName="clienteNombre" class="form-control text-right text-capitalize"/>
+                  </div>
+                  <div class="form-label-group">
+                    <label>Apellidos:</label>
+                    <input type="text" readonly formControlName="clienteApellido" class="form-control text-right text-capitalize"/>
+                  </div>
                 </div>
 
                 <div class="form-label-group">
                     <input type="number" id="numeroPaquetes" name="numeroPaquetes" formControlName="numeroPaquetes" class="form-control" placeholder="Nº de Paquetes" (blur)="ventaTotal()" required [ngClass]="{ 'is-invalid':  control.numeroPaquetes.errors}"/>
                     <div *ngIf="control.numeroPaquetes.errors" class="invalid-feedback">           
                       <div *ngIf="control.numeroPaquetes.errors.required">Se require el Numero de paquetes</div>
+                      <div *ngIf="control.numeroPaquetes.errors.min">Se require el Numero de paquetes</div>
                     </div>
                     <label for="numeroPaquetes">Nº Paquetes</label>
                 </div>
@@ -42,6 +56,7 @@
                     <input type="number" id="valorPaquete" name="valorPaquete" formControlName="valorPaquete" class="form-control" placeholder="valor del Paquetes" (blur)="ventaTotal()" required [ngClass]="{ 'is-invalid':  control.valorPaquete.errors}"/>
                     <div *ngIf="control.valorPaquete.errors" class="invalid-feedback">           
                       <div *ngIf="control.valorPaquete.errors.required">Se require  valor de Paquete</div>
+                      <div *ngIf="control.numeroPaquetes.errors.min">Se require  valor de Paquete</div>
                     </div>
                     <label for="valorPaquete">Valor Paquete</label>
                 </div>
@@ -62,7 +77,7 @@
                   <input type="checkbox" class="custom-control-input" id="customCheck1">
                   <label class="custom-control-label" for="customCheck1">Remember password</label>
                 </div>-->
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="add()">Registrar</button>
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="onSubmit()">Registrar</button>
                 <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="reset">Cancelar</button>
                 
                 <!--<button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>

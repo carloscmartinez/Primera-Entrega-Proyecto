@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Datos.Migrations
 {
     [DbContext(typeof(VentaContext))]
-    [Migration("20200514153123_InitialCreate")]
+    [Migration("20200528200152_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,8 +23,8 @@ namespace Datos.Migrations
 
             modelBuilder.Entity("Entity.Cliente", b =>
                 {
-                    b.Property<string>("ClienteId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("ClienteId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Apellido")
                         .HasColumnType("nvarchar(max)");
@@ -40,32 +40,43 @@ namespace Datos.Migrations
                     b.ToTable("Clientes");
                 });
 
-            modelBuilder.Entity("Entity.Usuario", b =>
+            modelBuilder.Entity("Entity.User", b =>
                 {
-                    b.Property<string>("UsuarioId")
+                    b.Property<string>("Usuario")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Apellido")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NombreUsuario")
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UsuarioId");
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Usuarios");
+                    b.HasKey("Usuario");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Entity.Venta", b =>
                 {
-                    b.Property<string>("VentaId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("VentaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ClienteId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("ClienteId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -90,7 +101,9 @@ namespace Datos.Migrations
                 {
                     b.HasOne("Entity.Cliente", "Cliente")
                         .WithMany("Ventas")
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

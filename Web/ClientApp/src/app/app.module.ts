@@ -18,13 +18,14 @@ import { VentaRegistroComponent } from './venta/venta-registro/venta-registro.co
 import { VentaConsultaComponent } from './venta/venta-consulta/venta-consulta.component';
 import { UsuarioConsultaComponent } from './usuario/usuario-consulta/usuario-consulta.component';
 import { UsuarioRegistroComponent } from './usuario/usuario-registro/usuario-registro.component';
-import { LoginComponent } from './usuario/login/login.component';
+import { LoginComponent } from './login/login.component';
 import { NgbCollapse, NgbDropdown, NgbDropdownMenu,NgbDropdownToggle,NgbDropdownItem,NgbDropdownAnchor, NgbActiveModal, NgbModal, NgbModalRef, NgbModalConfig, NgbModalOptions, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from './@base/alert-modal/alert-modal.component';
 import { FiltroClientePipe } from './pipe/filtro-cliente.pipe';
 import { VentaService } from './services/venta.service';
 import { ClienteModificarComponent } from './cliente/cliente-modificar/cliente-modificar.component';
-
+import { ClienteConsultaModalComponent } from './cliente/modals/cliente-consulta-modal/cliente-consulta-modal.component';
+//import { JwtInterceptor } from './services/jwt-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ClienteModificarComponent } from './cliente/cliente-modificar/cliente-m
     LoginComponent,
     AlertModalComponent,
     FiltroClientePipe,
-    ClienteModificarComponent
+    ClienteModificarComponent,
+    ClienteConsultaModalComponent
     // NgbCollapse,NgbDropdown,NgbDropdownMenu,NgbDropdownToggle,NgbDropdownItem,NgbDropdownAnchor, AlertModalComponent,
     // NgbActiveModal,NgbModalConfig,NgbModalRef,NgbModal
   ],
@@ -60,8 +62,10 @@ import { ClienteModificarComponent } from './cliente/cliente-modificar/cliente-m
     AppRoutingModule,
     NgbModule
   ],
-  entryComponents: [AlertModalComponent],
-  providers: [ClienteService, VentaService],
+  entryComponents: [AlertModalComponent,ClienteConsultaModalComponent],
+  providers: [ClienteService, VentaService
+    //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,11 +8,12 @@
             <form class="form-signin" [formGroup]="formGroup">
               
               <div class="form-label-group">
-                <input type="number" id="clienteId" name="clienteId" formControlName="clienteId" class="form-control" placeholder="clienteId" required
-                [ngClass]="{ 'is-invalid':  control.clienteId.errors}"
+                <input type="number" id="clienteId" name="clienteId" formControlName="clienteId" class="form-control" placeholder="clienteId" required 
+                [ngClass]="{ 'is-invalid':  control.clienteId.errors }"
                 />
-                <div *ngIf="control.clienteId.errors" class="invalid-feedback">           
+                <div *ngIf="control.clienteId.errors " class="invalid-feedback">           
                   <div *ngIf="control.clienteId.errors.required">Se require la Identificacion</div>
+                  <!-- <div *ngIf="control.clienteId.errors.validaId">Esta id ya esta registrada</div> -->
                 </div>                  
                 <label for="clienteId">Identificacion</label>
               </div><br>

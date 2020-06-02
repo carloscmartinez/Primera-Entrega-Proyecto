@@ -8,37 +8,38 @@ import { VentaConsultaComponent } from './venta/venta-consulta/venta-consulta.co
 import { VentaRegistroComponent } from './venta/venta-registro/venta-registro.component';
 import { UsuarioRegistroComponent } from './usuario/usuario-registro/usuario-registro.component';
 import { UsuarioConsultaComponent } from './usuario/usuario-consulta/usuario-consulta.component';
-import { LoginComponent } from './usuario/login/login.component';
+import { LoginComponent } from './login/login.component';
 import { ClienteModificarComponent } from './cliente/cliente-modificar/cliente-modificar.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
     path: 'personaConsulta',
-    component: PersonaConsultaComponent
+    component: PersonaConsultaComponent, canActivate: [AuthGuard]
   },
   {
     path: 'clienteConsulta',
-    component: ClienteConsultaComponent
+    component: ClienteConsultaComponent, canActivate: [AuthGuard]
   },
   {
     path: 'clienteRegistro',
-    component: ClienteRegistroComponent
+    component: ClienteRegistroComponent, canActivate: [AuthGuard]
   },
   {
     path: 'ventaConsulta',
-    component: VentaConsultaComponent
+    component: VentaConsultaComponent, canActivate: [AuthGuard]
   },
   {
     path: 'ventaRegistro',
-    component: VentaRegistroComponent
+    component: VentaRegistroComponent, canActivate: [AuthGuard]
   },
   {
     path: 'usuarioRegistro',
-    component: UsuarioRegistroComponent
+    component: UsuarioRegistroComponent, canActivate: [AuthGuard]
   },
   {
     path: 'usuarioConsulta',
-    component: UsuarioConsultaComponent
+    component: UsuarioConsultaComponent,  canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -46,7 +47,7 @@ const routes: Routes = [
   },
   {
     path: 'clienteModificar/:id',
-    component: ClienteModificarComponent
+    component: ClienteModificarComponent, canActivate: [AuthGuard]
   },
 ];
 

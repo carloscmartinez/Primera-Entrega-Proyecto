@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Venta } from '../models/venta';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from 'src/app/@base/alert-modal/alert-modal.component';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { VentaService } from 'src/app/services/venta.service';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { Cliente } from 'src/app/cliente/models/cliente';
+import { ClienteConsultaModalComponent } from 'src/app/cliente/modals/cliente-consulta-modal/cliente-consulta-modal.component';
 
 @Component({
   selector: 'app-venta-registro',
@@ -40,9 +42,11 @@ export class VentaRegistroComponent implements OnInit {
         this.formGroup = this.formBuilder.group({
             //ventaId: [this.venta.ventaId, Validators.required],
             fecha: [this.venta.fecha, Validators.required],
-            clienteId : [this.venta.clienteId , Validators.required],
-            numeroPaquetes : [this.venta.numeroPaquetes , Validators.required],
-            valorPaquete : [this.venta.valorPaquete , Validators.required],
+            clienteId : [this.venta.clienteId , [Validators.required, ]],
+            clienteNombre: [''],
+            clienteApellido: [''],
+            numeroPaquetes : [this.venta.numeroPaquetes ,[Validators.required,  Validators.min(1) ]],
+            valorPaquete : [this.venta.valorPaquete , [Validators.required,  Validators.min(1) ]],
              totalVenta : [this.venta.totalVenta , Validators.required]
             
         });
@@ -52,10 +56,11 @@ export class VentaRegistroComponent implements OnInit {
     }
     //buscar el cliente 
     buscarCliente() {
-      this.clienteService.getByIdentificacion(this.formGroup.value.clienteId).subscribe(cliente => {
+      this.clienteService.getId(this.formGroup.value.clienteId).subscribe(cliente => {
           if (cliente != null) {
-              this.formGroup['clienteId'].setValue(cliente.identificacion);
-              this.formGroup['clienteNombre'].setValue(cliente.nombreCompleto);
+              this.control['clienteId'].setValue(cliente.clienteId);
+              this.control['clienteNombre'].setValue(cliente.nombre);
+              this.control['clienteApellido'].setValue(cliente.apellido);
           }
           else
           {
@@ -70,10 +75,11 @@ export class VentaRegistroComponent implements OnInit {
       this.modalService.open(ClienteConsultaModalComponent, { size: 'lg' }).result.then((cliente) => this.actualizar(cliente));
   }
 
-  actualizar(cliente: ClienteViewModel) {
+  actualizar(cliente: Cliente) {
       
-      this.registerForm.controls['clienteId'].setValue(cliente.identificacion);
-      this.registerForm.controls['clienteNombre'].setValue(cliente.nombreCompleto);
+      this.control['clienteId'].setValue(cliente.clienteId);
+      this.control['clienteNombre'].setValue(cliente.nombre);
+      this.control['clienteApellido'].setValue(cliente.apellido);
   }
   //Fin Manejo Modal
     onSubmit() {

@@ -98,12 +98,12 @@ namespace Logica
             Nombre = venta.Cliente.Nombre;
             Apellido = venta.Cliente.Apellido;
         }
-        public string VentaId { get; set; }
+        public int VentaId { get; set; }
         public DateTime Fecha { get; set; }
         public int NumeroPaquetes { get; set; }
         public float ValorPaquete { get; set; }
         public float TotalVenta { get; set; }
-        public string ClienteId { get; set; }
+        public long ClienteId { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         

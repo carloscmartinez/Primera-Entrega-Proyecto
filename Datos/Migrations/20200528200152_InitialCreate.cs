@@ -11,7 +11,7 @@ namespace Datos.Migrations
                 name: "Clientes",
                 columns: table => new
                 {
-                    ClienteId = table.Column<string>(nullable: false),
+                    ClienteId = table.Column<long>(nullable: false),
                     Nombre = table.Column<string>(nullable: true),
                     Apellido = table.Column<string>(nullable: true),
                     Telefono = table.Column<string>(nullable: true)
@@ -22,29 +22,33 @@ namespace Datos.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Usuarios",
+                name: "Users",
                 columns: table => new
                 {
-                    UsuarioId = table.Column<string>(nullable: false),
+                    Usuario = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: true),
+                    Estado = table.Column<string>(nullable: true),
                     Nombre = table.Column<string>(nullable: true),
-                    NombreUsuario = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true)
+                    Apellido = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Telefono = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuarios", x => x.UsuarioId);
+                    table.PrimaryKey("PK_Users", x => x.Usuario);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Ventas",
                 columns: table => new
                 {
-                    VentaId = table.Column<string>(nullable: false),
+                    VentaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Fecha = table.Column<DateTime>(nullable: false),
                     NumeroPaquetes = table.Column<int>(nullable: false),
                     ValorPaquete = table.Column<float>(nullable: false),
                     TotalVenta = table.Column<float>(nullable: false),
-                    ClienteId = table.Column<string>(nullable: true)
+                    ClienteId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,7 +58,7 @@ namespace Datos.Migrations
                         column: x => x.ClienteId,
                         principalTable: "Clientes",
                         principalColumn: "ClienteId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -66,7 +70,7 @@ namespace Datos.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Ventas");
