@@ -12,6 +12,7 @@ using Web.Models;
 
 namespace Web.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class VentaController: ControllerBase

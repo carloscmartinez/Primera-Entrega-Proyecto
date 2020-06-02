@@ -25,7 +25,7 @@ import { FiltroClientePipe } from './pipe/filtro-cliente.pipe';
 import { VentaService } from './services/venta.service';
 import { ClienteModificarComponent } from './cliente/cliente-modificar/cliente-modificar.component';
 import { ClienteConsultaModalComponent } from './cliente/modals/cliente-consulta-modal/cliente-consulta-modal.component';
-//import { JwtInterceptor } from './services/jwt-interceptor.service';
+import { JwtInterceptorService } from './services/jwt-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -63,8 +63,8 @@ import { ClienteConsultaModalComponent } from './cliente/modals/cliente-consulta
     NgbModule
   ],
   entryComponents: [AlertModalComponent,ClienteConsultaModalComponent],
-  providers: [ClienteService, VentaService
-    //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  providers: [ClienteService, VentaService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
   ],
   bootstrap: [AppComponent]
 })
