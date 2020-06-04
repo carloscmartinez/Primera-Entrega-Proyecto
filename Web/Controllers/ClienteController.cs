@@ -9,10 +9,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Web.Services;
+using System.Net;
 
 namespace Web.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ClienteController: ControllerBase
@@ -26,6 +29,8 @@ namespace Web.Controllers
             string connectionString = Configuration["ConnectionStrings:DefaultConnection"];
             _clienteService = new ClienteService(connectionString); */
         }
+
+        [Authorize(Roles="Administrador,Vendedor")]
         // GET: api/Cliente
         [HttpGet]
         public IEnumerable<ClienteViewModel> Gets()
@@ -34,6 +39,7 @@ namespace Web.Controllers
             return clientes;
         }
 
+        [Authorize(Roles="Administrador,Vendedor")]
         // GET: api/Persona/5
         [HttpGet("{identificacion}")]
         public ActionResult<ClienteViewModel> Get(long identificacion)
@@ -64,6 +70,7 @@ namespace Web.Controllers
         //     return cliente;
         // }
 
+        [Authorize(Roles="Administrador,Vendedor")]
         // POST: api/Cliente
         [HttpPost]
         public ActionResult<ClienteViewModel> Post(ClienteInputModel clienteInput)
@@ -99,6 +106,8 @@ namespace Web.Controllers
             return cliente;
         
     }
+
+    [Authorize(Roles="Administrador,Vendedor")]
     // PUT: api/Persona/5
         [HttpPut("{identificacion}")]
         public ActionResult<string> Put(long identificacion, ClienteInputModel clienteInput)

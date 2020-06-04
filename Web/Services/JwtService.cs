@@ -18,7 +18,7 @@ namespace Web.Services
         {
             // return null if user not found
             if (userLogIn == null) return null;
-            var userResponse = new LoginViewModel() { Nombre = userLogIn.Nombre, Apellido = userLogIn.Apellido, Usuario = userLogIn.Usuario };
+            var userResponse = new LoginViewModel() { Nombre = userLogIn.Nombre, Apellido = userLogIn.Apellido, Usuario = userLogIn.Usuario, Role = userLogIn.Role};
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -26,11 +26,11 @@ namespace Web.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, userLogIn.Usuario.ToString()),
-                    new Claim(ClaimTypes.Email, userLogIn.Email.ToString()),
-                    new Claim(ClaimTypes.MobilePhone, userLogIn.Telefono.ToString()),
-                    new Claim(ClaimTypes.Role, "Admin"),
-                    new Claim(ClaimTypes.Role, "Vendedor"),
+                    new Claim(ClaimTypes.Name, userLogIn.Usuario),
+                    //new Claim(ClaimTypes.Email, userLogIn.Email.ToString()),
+                    // new Claim(ClaimTypes.Telefono, userLogIn.Telefono.ToString()),
+                    new Claim(ClaimTypes.Role, userLogIn.Role)
+                    // new Claim(ClaimTypes.Role, "Vendedor"),
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

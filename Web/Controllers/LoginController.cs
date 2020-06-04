@@ -8,6 +8,8 @@ using Microsoft.Extensions.Options;
 using Web.Config;
 using Web.Models;
 using Web.Services;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Web.Controllers
 {
@@ -22,18 +24,21 @@ namespace Web.Controllers
         public LoginController(VentaContext context, IOptions<AppSetting> appSettings)
         {
             _context = context;
-            var admin = _context.Users.Find("admin");
+            var admin = _context.Users.FirstOrDefault(x => x.Usuario == "admin");
+            //var admin = _context.Users.Find(1);
             if (admin == null) 
             {
                 _context.Users.Add(new User() 
                 { 
+                    //UserId = 1,
                     Usuario="admin", 
                     Password="admin", 
-                    Email="admin@gmail.com", 
+                    //Email="admin@gmail.com", 
                     Estado="AC", 
                     Nombre="Adminitrador", 
                     Apellido="", 
-                    Telefono="31800000000"}
+                    Role="Administrador",
+                    Telefono="3180000000"}
                 );
                 var registrosGuardados=_context.SaveChanges();
             }

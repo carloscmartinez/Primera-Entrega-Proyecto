@@ -1,65 +1,39 @@
 <body>
-    <h1>Usuarios</h1>
-    
-     <!-- <table class="customers" *ngIf='usuarios && usuarios.length'>
-            <thead>
-              <tr>
-                <th scope="col">Nº</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Usuario</th>
-                <th scope="col">Contraseña</th>
-                
-              </tr>
-            </thead>
-            <tbody>
-            
-              <tr *ngFor="let usuario of usuarios; index as i ">
-                <th scope="row">{{ i + 1 }}</th>
-                <td class="text-center">{{usuario.nombre}} </td>
-                <td>{{usuario.usuario}}</td>
-                <td class="text-right">{{ usuario.password }}</td>
-              </tr>
-            </tbody>
-          </table>-->
+  <div class="row">
+    <div class="col-6">
+        <h1>Usuarios</h1>
+        <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Buscar">
+    </div>
+  </div>
+  <hr>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Password</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Rol</th>
+        <th scope="col">Telefono</th>
+        <!-- <th scope="col">Ver</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios; index as i">
+        <td data-label="Nº" scope="row">{{ i + 1 }}</td>
+        <td data-label="Usuario"class="text-left ">{{ usuario.usuario }}</td>
+        <td data-label="Password"class="text-left ">{{ usuario.password }}</td>
+        <td data-label="Estado"class="text-left text-capitalize">{{ usuario.estado }}</td>        
+        <td data-label="Nombre"class="text-left text-capitalize">{{ usuario.nombre }}</td>
+        <td data-label="Apellido"class="text-left text-capitalize">{{ usuario.apellido }}</td>
+        <td data-label="Role"class="text-left text-capitalize">{{ usuario.role }}</td>
+        <td data-label="Telefono"class="text-right">{{ usuario.telefono }}</td>
+        <!-- <td><a routerLink="/usuarioModificar/{{usuario.usuarioId}}">ver</a></td>   |filtroUsuario:searchText-->
         
-    
-        <table class="table table-hover">
-            <thead >
-              <tr>
-                <th scope="col">Nº</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Usuario</th>
-                <th scope="col">Contraseña</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Nº">1</td>
-                <td data-label="Nombre">11</td>
-                <td data-label="Usuario">Otto</td>
-                <td data-label="Contraseña">11111111</td>
-              </tr>
-              <tr>
-                <td data-label="Nº">2</td>
-                <td data-label="Nombre">22</td>
-                <td data-label="Usuario">Thornton</td>
-                <td data-label="Contraseña">22222222</td>
-              </tr>
-              <tr>
-                <td data-label="Nº">3</td>
-                <td data-label="Nombre">33</td>
-                <td data-label="Usuario">the Bird</td>
-                <td data-label="Contraseña">33333333</td>
-              </tr>
-              <tr>
-                <td data-label="Nº">3</td>
-                <td data-label="Nombre">33</td>
-                <td data-label="Usuario">the Bird</td>
-                <td data-label="Contraseña">33333333</td>
-              </tr>
-            </tbody>
-          </table>
-          
-         <!-- <div class="table table-bordered">-->
-           
-         </body>
+      </tr>
+    </tbody>
+  </table>
+</body>

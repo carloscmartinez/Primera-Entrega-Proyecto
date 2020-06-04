@@ -17,7 +17,6 @@ export class ClienteConsultaComponent implements OnInit {
      this.clienteService.get().subscribe(result => {
       this.clientes = result;
     }); 
-
   }
 
 }

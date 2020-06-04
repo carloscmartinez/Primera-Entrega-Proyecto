@@ -14,32 +14,28 @@ import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'personaConsulta',
-    component: PersonaConsultaComponent, canActivate: [AuthGuard]
-  },
-  {
     path: 'clienteConsulta',
-    component: ClienteConsultaComponent, canActivate: [AuthGuard]
+    component: ClienteConsultaComponent, canActivate: [AuthGuard], data: { roles: ["Administrador","Vendedor"]}
   },
   {
     path: 'clienteRegistro',
-    component: ClienteRegistroComponent, canActivate: [AuthGuard]
+    component: ClienteRegistroComponent, canActivate: [AuthGuard], data: { roles: ["Administrador","Vendedor"]}
   },
   {
     path: 'ventaConsulta',
-    component: VentaConsultaComponent, canActivate: [AuthGuard]
+    component: VentaConsultaComponent, canActivate: [AuthGuard], data: { roles: ["Administrador","Vendedor"]}
   },
   {
     path: 'ventaRegistro',
-    component: VentaRegistroComponent, canActivate: [AuthGuard]
+    component: VentaRegistroComponent, canActivate: [AuthGuard], data: { roles: ["Administrador","Vendedor"]}
   },
   {
     path: 'usuarioRegistro',
-    component: UsuarioRegistroComponent, canActivate: [AuthGuard]
+    component: UsuarioRegistroComponent, canActivate: [AuthGuard], data: { roles: ["Administrador"]}
   },
   {
     path: 'usuarioConsulta',
-    component: UsuarioConsultaComponent,  canActivate: [AuthGuard]
+    component: UsuarioConsultaComponent,  canActivate: [AuthGuard], data: { roles: ["Administrador"]}
   },
   {
     path: 'login',
@@ -47,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'clienteModificar/:id',
-    component: ClienteModificarComponent, canActivate: [AuthGuard]
+    component: ClienteModificarComponent, canActivate: [AuthGuard], data: { roles: ["Administrador","Vendedor"]}
   },
 ];
 

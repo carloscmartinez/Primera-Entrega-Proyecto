@@ -16,6 +16,7 @@ namespace Web.Models
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Usuario { get; set; }
+        public string Role { get; set; }
         public string Token { get; set; }
     }
 

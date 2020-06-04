@@ -9,10 +9,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Web.Services;
+using System.Net;
 
 namespace Web.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class VentaController: ControllerBase
@@ -23,6 +26,7 @@ namespace Web.Controllers
             _ventaService = new VentaService(context);
 
         }
+        [Authorize(Roles="Administrador,Vendedor")]
         // GET: api/Venta
         [HttpGet]
         public IEnumerable<VentaViewModel> Gets()
@@ -31,6 +35,7 @@ namespace Web.Controllers
             return ventas;
         }
 
+        [Authorize(Roles="Administrador,Vendedor")]
         // POST: api/Venta
         [HttpPost]
         public ActionResult<VentaViewModel> Post(VentaInputModel ventaInput)
