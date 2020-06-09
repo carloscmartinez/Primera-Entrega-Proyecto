@@ -50,6 +50,13 @@ namespace Logica
             return ventas;
             
       } 
+      //.Where(b => b.Name == "ADO.NET Blog");
+      public Venta ConsultarUltimaVenta(long idCliente)
+      {
+            var venta = _context.Ventas.Where(b => b.ClienteId == idCliente).Include(x => x.Cliente).LastOrDefault();
+            return venta;
+            
+      }
 
       public int ConsultarUltimaId()
       {

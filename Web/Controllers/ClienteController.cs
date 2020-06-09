@@ -12,6 +12,8 @@ using Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Web.Services;
 using System.Net;
+using Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Web.Controllers
 {
@@ -21,10 +23,12 @@ namespace Web.Controllers
     public class ClienteController: ControllerBase
     {
         private readonly ClienteService _clienteService;
+        private readonly IHubContext<SignalHub> _hubContext;
         // public IConfiguration Configuration { get; }
-        public ClienteController(VentaContext context)
+        public ClienteController(VentaContext context, IHubContext<SignalHub> hubContext)
         {
             _clienteService = new ClienteService(context);
+            _hubContext = hubContext;
             /* Configuration = configuration;
             string connectionString = Configuration["ConnectionStrings:DefaultConnection"];
             _clienteService = new ClienteService(connectionString); */
@@ -73,7 +77,7 @@ namespace Web.Controllers
         [Authorize(Roles="Administrador,Vendedor")]
         // POST: api/Cliente
         [HttpPost]
-        public ActionResult<ClienteViewModel> Post(ClienteInputModel clienteInput)
+        public async Task<ActionResult<ClienteViewModel>> PostAsync(ClienteInputModel clienteInput)
         {
             Cliente cliente = MapearCliente(clienteInput);
             var response = _clienteService.Guardar(cliente);
@@ -90,6 +94,8 @@ namespace Web.Controllers
                 //------------------------------------------------------------------------------------
                 // return BadRequest(response.Mensaje);
             }
+            var clienteViewModel = new ClienteViewModel(cliente);
+            await _hubContext.Clients.All.SendAsync("ClienteRegistrado", clienteViewModel);
             return Ok(response.Cliente);
         }
 

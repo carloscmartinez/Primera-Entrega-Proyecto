@@ -15,6 +15,8 @@ export class UsuarioConsultaComponent implements OnInit {
     this.userService.get().subscribe(result => {
      this.usuarios = result;
    }); 
+
+ 
  }
 
 }

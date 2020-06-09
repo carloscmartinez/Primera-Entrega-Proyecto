@@ -25,17 +25,19 @@ namespace Datos.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Usuario = table.Column<string>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Usuario = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
                     Estado = table.Column<string>(nullable: true),
                     Nombre = table.Column<string>(nullable: true),
                     Apellido = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
+                    Role = table.Column<string>(nullable: true),
                     Telefono = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Usuario);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(

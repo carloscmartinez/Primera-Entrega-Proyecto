@@ -9,7 +9,6 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { PersonaConsultaComponent } from './Pulsacion/persona-consulta/persona-consulta.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ClienteConsultaComponent } from './cliente/cliente-consulta/cliente-consulta.component';
 import { ClienteRegistroComponent } from './cliente/cliente-registro/cliente-registro.component';
@@ -34,7 +33,6 @@ import { JwtInterceptorService } from './services/jwt-interceptor.service';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    PersonaConsultaComponent,
     ClienteConsultaComponent,
     ClienteRegistroComponent,
     VentaRegistroComponent,

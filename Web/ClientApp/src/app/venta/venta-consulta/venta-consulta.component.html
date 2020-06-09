@@ -74,7 +74,7 @@
 <div class="row">
       <div class="col-6">
       <h1>Ventas</h1>
-        <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Buscar">
+  <!--       <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Buscar">|filtroCliente:searchText -->
       </div>
     </div>
     <hr>
@@ -94,7 +94,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let ventaViewModel of ventaViewModels|filtroCliente:searchText; index as i">
+    <tr *ngFor="let ventaViewModel of ventaViewModels; index as i">
       <td data-label="Nº" scope="row">{{ i + 1 }}</td>
       <td data-label="IdVenta"class="text-right">{{ ventaViewModel.ventaId | number }}</td>
       <td data-label="Fecha"class="text-right">{{ ventaViewModel.fecha }}</td>

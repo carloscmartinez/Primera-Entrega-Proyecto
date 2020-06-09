@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+using System.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,8 @@ using Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Web.Services;
 using System.Net;
+using Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Web.Controllers
 {
@@ -21,9 +25,11 @@ namespace Web.Controllers
     public class VentaController: ControllerBase
     {
         private readonly VentaService _ventaService;
-        public VentaController(VentaContext context)
+        private readonly IHubContext<SignalHub> _hubContext;
+        public VentaController(VentaContext context, IHubContext<SignalHub> hubContext)
         {
             _ventaService = new VentaService(context);
+            _hubContext = hubContext;
 
         }
         [Authorize(Roles="Administrador,Vendedor")]
@@ -38,7 +44,7 @@ namespace Web.Controllers
         [Authorize(Roles="Administrador,Vendedor")]
         // POST: api/Venta
         [HttpPost]
-        public ActionResult<VentaViewModel> Post(VentaInputModel ventaInput)
+        public async Task<ActionResult<VentaViewModel>> PostAsync(VentaInputModel ventaInput)
         {
             Venta venta = MapearVenta(ventaInput);
             var response = _ventaService.Guardar(venta);
@@ -55,6 +61,10 @@ namespace Web.Controllers
                 //------------------------------------------------------------------------------------
                 // return BadRequest(response.Mensaje);
             }
+            //var ventaViewModel = ConsultarUltimaVenta(venta.ClienteId)
+            var v = _ventaService.ConsultarUltimaVenta(venta.ClienteId);
+            var ventaViewModel = new VentaViewModel(v);
+            await _hubContext.Clients.All.SendAsync("VentaRegistrada", ventaViewModel);
             return Ok(response.Venta);
         }
 
