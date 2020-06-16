@@ -9,9 +9,9 @@
               
               <div class="form-label-group">
                 <input type="number" id="clienteId" name="clienteId" formControlName="clienteId" class="form-control" placeholder="clienteId" required 
-                [ngClass]="{ 'is-invalid':  control.clienteId.errors }"
+                [ngClass]="{ 'is-invalid': submitted && control.clienteId.errors }"
                 />
-                <div *ngIf="control.clienteId.errors " class="invalid-feedback">           
+                <div *ngIf="submitted && control.clienteId.errors " class="invalid-feedback">           
                   <div *ngIf="control.clienteId.errors.required">Se require la Identificacion</div>
                   <!-- <div *ngIf="control.clienteId.errors.validaId">Esta id ya esta registrada</div> -->
                 </div>                  
@@ -19,24 +19,24 @@
               </div><br>
 
               <div class="form-label-group">
-                  <input  type="text" id="nombre" name="nombre" formControlName="nombre" class="form-control" placeholder="Nombre" required [ngClass]="{ 'is-invalid':  control.nombre.errors}">
-                  <div *ngIf="control.nombre.errors" class="invalid-feedback">
+                  <input  type="text" id="nombre" name="nombre" formControlName="nombre" class="form-control text-capitalize" placeholder="Nombre" required [ngClass]="{ 'is-invalid': submitted &&  control.nombre.errors}">
+                  <div *ngIf="submitted && control.nombre.errors" class="invalid-feedback">
                     <div *ngIf="control.nombre.errors.required">Se require el nombre</div>
                   </div>
                   <label for="nombre">Nombre</label>
               </div><br>
 
-              <div class="form-label-group">
-                <input type="text" id="apellido" name="apellido" formControlName="apellido" class="form-control" placeholder="apellido" required [ngClass]="{ 'is-invalid':  control.apellido.errors}">
-                <div *ngIf="control.apellido.errors" class="invalid-feedback">
+              <div class="form-label-group ">
+                <input type="text" id="apellido" name="apellido" formControlName="apellido" class="form-control text-capitalize" placeholder="apellido" required [ngClass]="{ 'is-invalid': submitted &&  control.apellido.errors}">
+                <div *ngIf="submitted && control.apellido.errors" class="invalid-feedback">
                   <div *ngIf="control.apellido.errors.required">Se require el apellido</div>                  
                 </div>
                 <label for="apellido">Apellido</label>
             </div><br>
 
               <div class="form-label-group">
-                  <input type="text" id="telefono" name="telefono" formControlName="telefono" class="form-control" placeholder="Telefono" required [ngClass]="{ 'is-invalid':  control.telefono.errors}">
-                  <div *ngIf="control.telefono.errors" class="invalid-feedback">
+                  <input type="text" id="telefono" name="telefono" formControlName="telefono" class="form-control" placeholder="Telefono" required [ngClass]="{ 'is-invalid': submitted &&  control.telefono.errors}">
+                  <div *ngIf="submitted && control.telefono.errors" class="invalid-feedback">
                     <div *ngIf="control.telefono.errors.required">Se require el telefono</div>
                   </div>
                   <label for="telefono">Telefono</label>

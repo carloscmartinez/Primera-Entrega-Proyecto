@@ -1,3 +1,9 @@
+//using System.Xml.Xsl.Runtime;
+using System.Data;
+using System.Xml.Serialization;
+using System.Net.Http.Headers;
+using System.Data.Common;
+//using System.Runtime.InteropServices.WindowsRuntime;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -16,6 +22,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Logica
 {
+    public class VentaDto
+    {
+        public int VentaId { get; set; }
+        public long ClienteId { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Estado{ get; set; }
+        public float Total{ get; set; }
+        public List<DetalleVentaDto> Detalles { get; set; } = new List<DetalleVentaDto>();
+    }
+
+    public class DetalleVentaDto
+    {
+        public int ProductoId { get; set; }
+        public int Cantidad { get; set; }
+        public float Precio { get; set; }
+        public float TotalVenta { get; set; }
+    }
+
+
     public class VentaService
     {
         private readonly VentaContext _context;
@@ -24,19 +49,46 @@ namespace Logica
           _context = context;
       } 
       
-      public GuardarVentaResponse Guardar(Venta venta)
+      public GuardarVentaResponse Guardar(Venta ventDto)
       {
           try
           {
-              var ventaAux = _context.Ventas.Find(venta.VentaId);
-              if (ventaAux != null)
+              var ventaNueva= new Venta();
+              ventaNueva.VentaId=ventDto.VentaId;
+              ventaNueva.Fecha=ventDto.Fecha;
+              ventaNueva.Estado=ventDto.Estado;
+              ventaNueva.Total=ventDto.Total;
+              var cliente=_context.Clientes.Find(ventDto.ClienteId);
+              //debes valirdar que exista el cliente
+              if (cliente == null)
               {
-                  return new GuardarVentaResponse($"Error de la aplicacion: La venta ya se encuentra registrada!");
+                  return new GuardarVentaResponse($"Error de la aplicacion: El cliente no se encuentra registrado!");
+              } 
+              ventaNueva.ClienteId=ventDto.ClienteId;
+              //------------------------------------
+              foreach (var item in ventDto.Detalles)
+              {
+                  var productoVendido =_context.Productos.Find(item.ProductoId);
+                  if(productoVendido !=null)
+                  {
+                        var detalleVenta= new DetalleVenta();
+                        detalleVenta.ProductoId=item.ProductoId;
+                        detalleVenta.Cantidad=item.Cantidad;
+                        detalleVenta.Precio=item.Precio;
+                        //detalleVenta.VentaId=ventDto.VentaId;
+                        detalleVenta.CalcularVenta() ;
+                        //ventaNueva.Productos.Add(detalleVenta);
+                        ventaNueva.Detalles.Add(detalleVenta);
+                  }
+                  else
+                  {
+                      return new GuardarVentaResponse($"Error de la aplicacion: esta venta no contiene productos vendidos!");
+                  }
               }
-              venta.CalcularVenta();
-              _context.Ventas.Add(venta);
+              
+              _context.Ventas.Add(ventaNueva);
               _context.SaveChanges();
-              return new GuardarVentaResponse(venta);
+              return new GuardarVentaResponse(ventaNueva);
           }
           catch (Exception e)
           {
@@ -46,7 +98,7 @@ namespace Logica
 
       public List<Venta> ConsultarTodos()
       {
-            var ventas = _context.Ventas.Include(x => x.Cliente).ToList();
+            var ventas = _context.Ventas.Include(x => x.Cliente).Include(d => d.Detalles).ToList();
             return ventas;
             
       } 
@@ -60,11 +112,7 @@ namespace Logica
 
       public int ConsultarUltimaId()
       {
-    //         // var ventas = _context.Ventas.orderByDesc().FirstorDefault();;
-    //         // return ventas;
-    //         // var registroMasActualizado = _context.Ventas().OrderByDescending(t => t.Fecha).FirstOrDefault();
-    //           var registroMasActualizado = _context.Ventas().OrderBy().LastOrDefault();                          
-    //           return registroMasActualizado.VentaId;  
+    
             var ventas = _context.Ventas.Include(x => x.Cliente).ToList();
             return ventas.Count();         
             
@@ -88,7 +136,7 @@ namespace Logica
     }
 
 
-    public class VentaViewModel 
+    /* public class VentaViewModel 
     {
         public VentaViewModel()
         {
@@ -114,7 +162,7 @@ namespace Logica
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         
-    }
+    } */
     
         
     }

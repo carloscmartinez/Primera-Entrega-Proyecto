@@ -34,7 +34,7 @@ namespace Web.Controllers
             _clienteService = new ClienteService(connectionString); */
         }
 
-        [Authorize(Roles="Administrador,Vendedor")]
+        //[Authorize(Roles="Administrador,Vendedor")]
         // GET: api/Cliente
         [HttpGet]
         public IEnumerable<ClienteViewModel> Gets()
@@ -43,7 +43,7 @@ namespace Web.Controllers
             return clientes;
         }
 
-        [Authorize(Roles="Administrador,Vendedor")]
+        //[Authorize(Roles="Administrador,Vendedor")]
         // GET: api/Persona/5
         [HttpGet("{identificacion}")]
         public ActionResult<ClienteViewModel> Get(long identificacion)
@@ -74,7 +74,7 @@ namespace Web.Controllers
         //     return cliente;
         // }
 
-        [Authorize(Roles="Administrador,Vendedor")]
+        //[Authorize(Roles="Administrador,Vendedor")]
         // POST: api/Cliente
         [HttpPost]
         public async Task<ActionResult<ClienteViewModel>> PostAsync(ClienteInputModel clienteInput)
@@ -113,7 +113,7 @@ namespace Web.Controllers
         
     }
 
-    [Authorize(Roles="Administrador,Vendedor")]
+    //[Authorize(Roles="Administrador,Vendedor")]
     // PUT: api/Persona/5
         [HttpPut("{identificacion}")]
         public ActionResult<string> Put(long identificacion, ClienteInputModel clienteInput)

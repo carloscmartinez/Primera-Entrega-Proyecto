@@ -17,6 +17,6 @@ namespace Entity
         public string Apellido { get; set; }
         public string Telefono { get; set; }
 
-        public List<Venta> Ventas { get; } = new List<Venta>();
+        public List<Venta> Ventas { get; set;} = new List<Venta>();
     }
 }

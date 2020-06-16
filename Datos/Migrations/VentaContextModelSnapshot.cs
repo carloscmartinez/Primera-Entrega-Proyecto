@@ -38,6 +38,55 @@ namespace Datos.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("Entity.DetalleVenta", b =>
+                {
+                    b.Property<int>("DetalleVentaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Precio")
+                        .HasColumnType("real");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("TotalVenta")
+                        .HasColumnType("real");
+
+                    b.Property<int>("VentaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DetalleVentaId");
+
+                    b.HasIndex("ProductoId");
+
+                    b.HasIndex("VentaId");
+
+                    b.ToTable("DetalleVentas");
+                });
+
+            modelBuilder.Entity("Entity.Producto", b =>
+                {
+                    b.Property<int>("ProductoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Precio")
+                        .HasColumnType("real");
+
+                    b.HasKey("ProductoId");
+
+                    b.ToTable("Productos");
+                });
+
             modelBuilder.Entity("Entity.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -81,16 +130,13 @@ namespace Datos.Migrations
                     b.Property<long>("ClienteId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("NumeroPaquetes")
-                        .HasColumnType("int");
-
-                    b.Property<float>("TotalVenta")
-                        .HasColumnType("real");
-
-                    b.Property<float>("ValorPaquete")
+                    b.Property<float>("Total")
                         .HasColumnType("real");
 
                     b.HasKey("VentaId");
@@ -98,6 +144,21 @@ namespace Datos.Migrations
                     b.HasIndex("ClienteId");
 
                     b.ToTable("Ventas");
+                });
+
+            modelBuilder.Entity("Entity.DetalleVenta", b =>
+                {
+                    b.HasOne("Entity.Producto", "Producto")
+                        .WithMany("Ventas")
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Venta", "Venta")
+                        .WithMany("Detalles")
+                        .HasForeignKey("VentaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entity.Venta", b =>

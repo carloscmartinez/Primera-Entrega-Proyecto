@@ -32,7 +32,7 @@ namespace Web.Controllers
             _hubContext = hubContext;
 
         }
-        [Authorize(Roles="Administrador,Vendedor")]
+        //[Authorize(Roles="Administrador,Vendedor")]
         // GET: api/Venta
         [HttpGet]
         public IEnumerable<VentaViewModel> Gets()
@@ -41,13 +41,26 @@ namespace Web.Controllers
             return ventas;
         }
 
-        [Authorize(Roles="Administrador,Vendedor")]
+       // [Authorize(Roles="Administrador,Vendedor")]
         // POST: api/Venta
         [HttpPost]
         public async Task<ActionResult<VentaViewModel>> PostAsync(VentaInputModel ventaInput)
         {
+            /* var lista= new List<DetalleVenta>();
+            foreach (var item in ventaInput.Detalles)
+              {    
+                   var detalleVenta= new DetalleVenta();
+                   detalleVenta.ProductoId=item.ProductoId;
+                   detalleVenta.Cantidad=item.Cantidad;
+                   detalleVenta.Precio=item.Precio;
+                   detalleVenta.TotalVenta=item.TotalVenta;
+                   //ventaNueva.Productos.Add(detalleVenta);
+                   lista.Add(detalleVenta);
+             } */
+           // ventaInput.Detalles=lista;
             Venta venta = MapearVenta(ventaInput);
-            var response = _ventaService.Guardar(venta);
+            var response = _ventaService.Guardar(venta); 
+            //var response = _ventaService.Guardar(ventaInput);
             if (response.Error) 
             {  
                 //------------------------------------------------------------------------------------
@@ -62,7 +75,7 @@ namespace Web.Controllers
                 // return BadRequest(response.Mensaje);
             }
             //var ventaViewModel = ConsultarUltimaVenta(venta.ClienteId)
-            var v = _ventaService.ConsultarUltimaVenta(venta.ClienteId);
+            var v = _ventaService.ConsultarUltimaVenta(ventaInput.ClienteId);
             var ventaViewModel = new VentaViewModel(v);
             await _hubContext.Clients.All.SendAsync("VentaRegistrada", ventaViewModel);
             return Ok(response.Venta);
@@ -70,16 +83,44 @@ namespace Web.Controllers
 
         private Venta MapearVenta(VentaInputModel ventaInput)
         {
+            //var d= new List<DetalleVenta>();
             var venta = new Venta
             {
                 VentaId = ventaInput.VentaId,
                 Fecha = ventaInput.Fecha,
-                NumeroPaquetes = ventaInput.NumeroPaquetes,
-                ValorPaquete = ventaInput.ValorPaquete,
-                TotalVenta = ventaInput.TotalVenta,
+                // NumeroPaquetes = ventaInput.NumeroPaquetes,
+                // ValorPaquete = ventaInput.ValorPaquete,
+                // TotalVenta = ventaInput.TotalVenta,
                 ClienteId = ventaInput.ClienteId,
+                Estado = ventaInput.Estado,
+                Total = ventaInput.Total,
+                //Detalles = ventaInput.Detalles,
+                
+                /* foreach (var item in ventaInput.Detalles)
+              {    
+                   var detalleVenta= new DetalleVenta();
+                   detalleVenta.Cantidad=item.Cantidad;
+                   detalleVenta.Precio=item.Precio;
+                   detalleVenta.ProductoId=productoVendido.ProductoId;
+                   detalleVenta.CalcularVenta() ;
+                   //ventaNueva.Productos.Add(detalleVenta);
+                   d.Add(detalleVenta);
+             },
+             Detalles = d, */
                 
             };
+            foreach (var item in ventaInput.Detalles)
+            {    
+                   var detalleVenta= new DetalleVenta();
+                   detalleVenta.ProductoId=item.ProductoId;
+                   detalleVenta.Cantidad=item.Cantidad;
+                   detalleVenta.Precio=item.Precio;   
+                   //detalleVenta.VentaId=item.VentaId;                
+                   detalleVenta.CalcularVenta() ;
+                   //ventaNueva.Productos.Add(detalleVenta);
+                   venta.Detalles.Add(detalleVenta);
+             }
+            //public List<DetalleVenta> LDetalles { get; set; } = new List<DetalleVenta>()
             return venta;
         
     }
