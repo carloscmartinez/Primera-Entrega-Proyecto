@@ -1,6 +1,13 @@
 import { Venta } from "./venta";
 
 export class DetalleVenta {
-    detalleId: number;
-    venta: Venta[];
+   
+    cantidad: number;
+    precio: number;
+    totalVenta: number;
+    productoId: number;
+    
+    
 }
+
+

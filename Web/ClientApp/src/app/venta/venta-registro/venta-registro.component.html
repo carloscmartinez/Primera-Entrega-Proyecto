@@ -44,22 +44,22 @@
                 </div>
 
                 <div class="form-label-group">
-                    <input type="number" id="numeroPaquetes" name="numeroPaquetes" formControlName="numeroPaquetes" class="form-control" placeholder="Nº de Paquetes" (blur)="ventaTotal()" required [ngClass]="{ 'is-invalid':  control.numeroPaquetes.errors}"/>
-                    <div *ngIf="control.numeroPaquetes.errors" class="invalid-feedback">           
-                      <div *ngIf="control.numeroPaquetes.errors.required">Se require el Numero de paquetes</div>
-                      <div *ngIf="control.numeroPaquetes.errors.min">Se require el Numero de paquetes</div>
+                    <input type="text" id="estado" name="estado" formControlName="estado" class="form-control" placeholder="Nº de Paquetes"  required [ngClass]="{ 'is-invalid':  control.estado.errors}"/>
+                    <div *ngIf="control.estado.errors" class="invalid-feedback">           
+                      <div *ngIf="control.estado.errors.required">Se require el Numero de paquetes</div>
+                      <!-- <div *ngIf="control.estado.errors.min">Se require el Numero de paquetes</div> -->
                     </div>
-                    <label for="numeroPaquetes">Nº Paquetes</label>
+                    <label for="estado"> Estado</label>
                 </div>
 
-                <div class="form-label-group">
-                    <input type="number" id="valorPaquete" name="valorPaquete" formControlName="valorPaquete" class="form-control" placeholder="valor del Paquetes" (blur)="ventaTotal()" required [ngClass]="{ 'is-invalid':  control.valorPaquete.errors}"/>
-                    <div *ngIf="control.valorPaquete.errors" class="invalid-feedback">           
-                      <div *ngIf="control.valorPaquete.errors.required">Se require  valor de Paquete</div>
-                      <div *ngIf="control.numeroPaquetes.errors.min">Se require  valor de Paquete</div>
+                <!-- <div class="form-label-group">
+                    <input type="number" id="total" name="total" formControlName="total" class="form-control" placeholder="total" (blur)="ventaTotal()" required [ngClass]="{ 'is-invalid':  control.total.errors}"/>
+                    <div *ngIf="control.total.errors" class="invalid-feedback">           
+                      <div *ngIf="control.total.errors.required">Se require  valor de Paquete</div>
+                      <div *ngIf="control.total.errors.min">Se require  valor de Paquete</div>
                     </div>
-                    <label for="valorPaquete">Valor Paquete</label>
-                </div>
+                    <label for="total">Valor Paquete</label>
+                </div> -->
 
                 <!-- <div class="form-label-group">
                     <input type="number" id="totalVenta" name="totalVenta" formControlName="totalVenta" class="form-control" placeholder="Total Venta" required [ngClass]="{ 'is-invalid':  control.totalVenta.errors}"/>
@@ -70,13 +70,15 @@
                 </div><br> -->
                 <div class="form-group">
                   <label>Total Venta :  </label>
-                  {{venta.totalVenta}}
+                  {{ventaTotal}}
                 </div><br>
-  
-               <!-- <div class="custom-control custom-checkbox mb-3">
-                  <input type="checkbox" class="custom-control-input" id="customCheck1">
-                  <label class="custom-control-label" for="customCheck1">Remember password</label>
-                </div>-->
+
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  +
+                </button>
+
                 <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="onSubmit()">Registrar</button>
                 <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="reset">Cancelar</button>
                 
@@ -84,6 +86,94 @@
                 <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
                 -->
               </form>
+              <!--  -->
+              
+               <!-- <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="customCheck1">
+                  <label class="custom-control-label" for="customCheck1">Remember password</label>
+                </div>-->
+               
+                <table class="table table-hover">
+                  <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Id Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Total</th>
+              
+              
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let detalleVenta of detallesVenta; index as i">
+                    <td data-label="Nº" scope="row">{{ i + 1 }}</td>
+                    <td class="text-right">{{ detalleVenta.productoId | number }}</td>
+                    <td class="text-right">{{ detalleVenta.cantidad | number }}</td>
+                    <td class="text-right">{{ detalleVenta.precio | number }}</td>
+                    <td class="text-right">{{ detalleVenta.totalVenta | number }}</td>
+  
+                  </tr>
+                  </tbody>
+                </table>
+              
+
+              <!-- -------------------------------------------------------- -->
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Detalle de la Venta</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <!-- -------------------------------------------------------- -->
+                      <form class="form-signin" [formGroup]="formGroupDetalle">
+                        <div class="form-label-group">
+                          <input type="number" id="productoId" name="productoId" formControlName="productoId" class="form-control" placeholder="productoId"  required [ngClass]="{ 'is-invalid':  controlDetalle.productoId.errors}"/>
+                          <div *ngIf="controlDetalle.productoId.errors" class="invalid-feedback">           
+                            <div *ngIf="controlDetalle.productoId.errors.required">Se require  valor de Paquete</div>
+                          </div>
+                          <label for="productoId">Id Producto</label>
+                      </div>
+        
+                    <div class="form-label-group">
+                      <input type="number" id="cantidad" name="cantidad" formControlName="cantidad" class="form-control" placeholder="cantidad"  required [ngClass]="{ 'is-invalid':  controlDetalle.cantidad.errors}"/>
+                      <div *ngIf="controlDetalle.cantidad.errors" class="invalid-feedback">           
+                        <div *ngIf="controlDetalle.cantidad.errors.required">Se require  valor de Paquete</div>
+                      </div>
+                      <label for="cantidad">Cantidad</label>
+                  </div>
+                  <div class="form-label-group">
+                    <input type="number" id="precio" name="precio" formControlName="precio" class="form-control" placeholder="precio"  required [ngClass]="{ 'is-invalid':  controlDetalle.precio.errors}"/>
+                    <div *ngIf="controlDetalle.precio.errors" class="invalid-feedback">           
+                      <div *ngIf="controlDetalle.precio.errors.required">Se require  valor de Paquete</div>
+                    </div>
+                    <label for="precio">Precio</label>
+                </div>
+          
+                <div class="form-label-group">
+                  <input type="number" id="totalVenta" name="totalVenta" formControlName="totalVenta" class="form-control" placeholder="totalVenta"  required [ngClass]="{ 'is-invalid':  controlDetalle.totalVenta.errors}"/>
+                  <div *ngIf="controlDetalle.totalVenta.errors" class="invalid-feedback">           
+                    <div *ngIf="controlDetalle.totalVenta.errors.required">Se require  valor de Paquete</div>
+                  </div>
+                  <label for="totalVenta">totalVenta</label>
+              </div>
+              <!-- <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="agregarDetalle()">Agregar</button> -->
+            </form>
+                      <!-- -------------------------------------------------------- -->
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" (click)="agregarDetalle()">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- ----------------------------------------------------------- -->
             </div>
           </div>
         </div>

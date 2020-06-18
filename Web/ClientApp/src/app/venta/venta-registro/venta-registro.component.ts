@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Venta } from '../models/venta';
+import { DetalleVenta } from '../models/detalle-venta';
 import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from 'src/app/@base/alert-modal/alert-modal.component';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
@@ -15,8 +16,13 @@ import { ClienteConsultaModalComponent } from 'src/app/cliente/modals/cliente-co
 })
 export class VentaRegistroComponent implements OnInit {
   venta: Venta;
+  detallesVenta: DetalleVenta[];
+  //detallesfVenta = new DetalleVenta[];
+  detalleVenta: DetalleVenta;
   formGroup: FormGroup;
+  formGroupDetalle: FormGroup;
   submitted= false
+ ventaTotal:number;
 
   constructor(
     private ventaService: VentaService,
@@ -31,13 +37,21 @@ export class VentaRegistroComponent implements OnInit {
 
   private buildForm() {
         this.venta= new Venta();
+        this.detalleVenta= new DetalleVenta();
         let myDate = new Date();
-        //this.venta.ventaId = 0;
+        this.detallesVenta = [];       
         this.venta.fecha = myDate;
-        this.venta.numeroPaquetes = 0;
-        this.venta.valorPaquete = 0;
-        this.venta.totalVenta = 0;
+        this.venta.estado= "";
+        this.venta.total= 0;
         this.venta.clienteId = 0;
+        this.ventaTotal=0;
+        this.detalleVenta.productoId= 0;
+        this.detalleVenta.cantidad= 0;
+        this.detalleVenta.precio= 0;
+        this.detalleVenta.totalVenta= 0;
+
+
+
         
         this.formGroup = this.formBuilder.group({
             //ventaId: [this.venta.ventaId, Validators.required],
@@ -45,14 +59,33 @@ export class VentaRegistroComponent implements OnInit {
             clienteId : [this.venta.clienteId , [Validators.required, ]],
             clienteNombre: [''],
             clienteApellido: [''],
-            numeroPaquetes : [this.venta.numeroPaquetes ,[Validators.required,  Validators.min(1) ]],
-            valorPaquete : [this.venta.valorPaquete , [Validators.required,  Validators.min(1) ]],
-             totalVenta : [this.venta.totalVenta , Validators.required]
-            
+            estado: [this.venta.estado,[Validators.required,  ]],
+            // total: [this.venta.total, [Validators.required,  Validators.min(1) ]],
         });
+
+    this.formGroupDetalle = this.formBuilder.group({
+      productoId: [this.detalleVenta.productoId, Validators.required],
+      cantidad: [this.detalleVenta.cantidad, Validators.required],
+      precio: [this.detalleVenta.precio, Validators.required],
+      totalVenta: [this.detalleVenta.totalVenta, Validators.required],
+    });
       }
     get control() { 
       return this.formGroup.controls;
+      
+    }
+    get controlDetalle() { 
+      
+      return this.formGroupDetalle.controls;
+    }
+    agregarDetalle(){
+      let detalle = new DetalleVenta();
+      detalle.cantidad = this.formGroupDetalle.value.cantidad;
+      detalle.precio= this.formGroupDetalle.value.precio; 
+      detalle.totalVenta= this.formGroupDetalle.value.totalVenta; 
+      detalle.productoId= this.formGroupDetalle.value.productoId;
+      this.detallesVenta.push(detalle);
+      this.ventaTotal=this.ventaTotal+detalle.totalVenta;
     }
     //buscar el cliente 
     buscarCliente() {
@@ -91,13 +124,15 @@ export class VentaRegistroComponent implements OnInit {
        this.formGroup.reset();
     }
     //calcula el total de la venta para ser mostrada en el formulario
-   ventaTotal(){
-    this.venta.totalVenta =this.formGroup.controls.numeroPaquetes.value*this.formGroup.controls.valorPaquete.value;
-   }   
+  //  ventaTotal(){
+  //   this.venta.totalVenta =this.formGroup.controls.numeroPaquetes.value*this.formGroup.controls.valorPaquete.value;
+  //  }   
       
 
   add() {
     this.venta= this.formGroup.value;
+    this.venta.total= this.ventaTotal;
+    this.venta.Detalles= this.detallesVenta;
     this.ventaService.post(this.venta).subscribe(p => {
       if (p != null) {
         const messageBox = this.modalService.open(AlertModalComponent)

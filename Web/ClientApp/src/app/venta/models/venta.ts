@@ -1,8 +1,9 @@
+import { DetalleVenta } from "./detalle-venta";
+
 export class Venta {
-    ventaId: number;
     fecha: Date;
-    numeroPaquetes: number;
-    valorPaquete: number;
-    totalVenta: number; 
+    estado: string;
+    total: number;
+    Detalles: DetalleVenta[]; 
     clienteId: number;  
 }

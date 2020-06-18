@@ -12,10 +12,10 @@ namespace Web.Models
 {
     public class VentaInputModel
     {
-        [Required]
-        public int VentaId { get; set; }
-        // [DataType]
-       // [Required(ErrorMessage ="La fecha es requerida")]
+        // [Required]
+        // public int VentaId { get; set; }
+        //[DataType]
+        [Required(ErrorMessage ="La fecha es requerida")]
         public DateTime Fecha { get; set; }
         [Required(ErrorMessage ="El estado de venta es requerido")]
         public string Estado { get; set; }
@@ -64,8 +64,10 @@ namespace Web.Models
              }
             
         }
+        public int VentaId { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        //Detalles = new List<DetalleVentaViewModel>();
         public List<DetalleVentaViewModel> DetallesView { get; set; } = new List<DetalleVentaViewModel>();
     
     }

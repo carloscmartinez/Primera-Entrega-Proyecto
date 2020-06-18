@@ -53,8 +53,8 @@ namespace Logica
       {
           try
           {
-              var ventaNueva= new Venta();
-              ventaNueva.VentaId=ventDto.VentaId;
+              /* var ventaNueva= new Venta();
+              //ventaNueva.VentaId=ventDto.VentaId;
               ventaNueva.Fecha=ventDto.Fecha;
               ventaNueva.Estado=ventDto.Estado;
               ventaNueva.Total=ventDto.Total;
@@ -88,7 +88,23 @@ namespace Logica
               
               _context.Ventas.Add(ventaNueva);
               _context.SaveChanges();
-              return new GuardarVentaResponse(ventaNueva);
+              return new GuardarVentaResponse(ventaNueva); */
+              var cliente=_context.Clientes.Find(ventDto.ClienteId);
+              if (cliente == null)
+              {
+                  return new GuardarVentaResponse($"Error de la aplicacion: El cliente no se encuentra registrado!");
+              }
+               foreach (var item in ventDto.Detalles)
+              {
+                  var productoVendido =_context.Productos.Find(item.ProductoId);
+                  if(productoVendido == null)
+                  {
+                       return new GuardarVentaResponse($"Error de la aplicacion: esta venta no contiene productos vendidos!");
+                  }
+              }
+              _context.Ventas.Add(ventDto);
+              _context.SaveChanges();
+              return new GuardarVentaResponse(ventDto);
           }
           catch (Exception e)
           {

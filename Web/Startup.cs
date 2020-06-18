@@ -32,6 +32,9 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             //Configurar cadena de conexion y el motor de base de datos para el EF core
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<VentaContext>(opt => opt.UseSqlServer(connectionString));

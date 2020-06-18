@@ -44,7 +44,7 @@ namespace Web.Controllers
        // [Authorize(Roles="Administrador,Vendedor")]
         // POST: api/Venta
         [HttpPost]
-        public async Task<ActionResult<VentaViewModel>> PostAsync(VentaInputModel ventaInput)
+        public ActionResult<VentaViewModel> Post(VentaInputModel ventaInput)
         {
             /* var lista= new List<DetalleVenta>();
             foreach (var item in ventaInput.Detalles)
@@ -75,9 +75,7 @@ namespace Web.Controllers
                 // return BadRequest(response.Mensaje);
             }
             //var ventaViewModel = ConsultarUltimaVenta(venta.ClienteId)
-            var v = _ventaService.ConsultarUltimaVenta(ventaInput.ClienteId);
-            var ventaViewModel = new VentaViewModel(v);
-            await _hubContext.Clients.All.SendAsync("VentaRegistrada", ventaViewModel);
+            
             return Ok(response.Venta);
         }
 
@@ -86,7 +84,7 @@ namespace Web.Controllers
             //var d= new List<DetalleVenta>();
             var venta = new Venta
             {
-                VentaId = ventaInput.VentaId,
+                //VentaId = ventaInput.VentaId,
                 Fecha = ventaInput.Fecha,
                 // NumeroPaquetes = ventaInput.NumeroPaquetes,
                 // ValorPaquete = ventaInput.ValorPaquete,
@@ -114,10 +112,8 @@ namespace Web.Controllers
                    var detalleVenta= new DetalleVenta();
                    detalleVenta.ProductoId=item.ProductoId;
                    detalleVenta.Cantidad=item.Cantidad;
-                   detalleVenta.Precio=item.Precio;   
-                   //detalleVenta.VentaId=item.VentaId;                
+                   detalleVenta.Precio=item.Precio;                  
                    detalleVenta.CalcularVenta() ;
-                   //ventaNueva.Productos.Add(detalleVenta);
                    venta.Detalles.Add(detalleVenta);
              }
             //public List<DetalleVenta> LDetalles { get; set; } = new List<DetalleVenta>()
