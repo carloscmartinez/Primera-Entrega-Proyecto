@@ -7,6 +7,8 @@ import { VentaConsultaComponent } from './venta/venta-consulta/venta-consulta.co
 import { VentaRegistroComponent } from './venta/venta-registro/venta-registro.component';
 import { UsuarioRegistroComponent } from './usuario/usuario-registro/usuario-registro.component';
 import { UsuarioConsultaComponent } from './usuario/usuario-consulta/usuario-consulta.component';
+import { ProductoRegistroComponent } from './producto/producto-registro/producto-registro.component';
+import { ProductoConsultaComponent } from './producto/producto-consulta/producto-consulta.component';
 import { LoginComponent } from './login/login.component';
 import { ClienteModificarComponent } from './cliente/cliente-modificar/cliente-modificar.component';
 import { AuthGuard } from './services/auth.guard';
@@ -43,6 +45,14 @@ const routes: Routes = [
   {
     path: 'clienteModificar/:id',
     component: ClienteModificarComponent, canActivate: [AuthGuard], data: { roles: ["Administrador","Vendedor"]}
+  },
+  {
+    path: 'productoRegistro',
+    component: ProductoRegistroComponent, canActivate: [AuthGuard], data: { roles: ["Administrador","Vendedor"]}
+  },
+  {
+    path: 'productoConsulta',
+    component: ProductoConsultaComponent,  canActivate: [AuthGuard], data: { roles: ["Administrador","Vendedor"]}
   },
 ];
 

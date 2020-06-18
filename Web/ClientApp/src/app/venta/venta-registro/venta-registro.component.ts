@@ -86,6 +86,7 @@ export class VentaRegistroComponent implements OnInit {
       detalle.productoId= this.formGroupDetalle.value.productoId;
       this.detallesVenta.push(detalle);
       this.ventaTotal=this.ventaTotal+detalle.totalVenta;
+      this.formGroupDetalle.reset();
     }
     //buscar el cliente 
     buscarCliente() {
@@ -121,7 +122,8 @@ export class VentaRegistroComponent implements OnInit {
           return;
        }
        this.add();
-       this.formGroup.reset();
+      // this.formGroup.reset();
+       
     }
     //calcula el total de la venta para ser mostrada en el formulario
   //  ventaTotal(){
@@ -145,5 +147,13 @@ export class VentaRegistroComponent implements OnInit {
     });
     
   }
+
+  onReset() {
+    this.submitted = false;
+    this.formGroup.reset();
+    this.ventaTotal=0;
+    this.detallesVenta=[];
+    this.formGroupDetalle.reset();
+}
 
 }

@@ -25,6 +25,10 @@ import { VentaService } from './services/venta.service';
 import { ClienteModificarComponent } from './cliente/cliente-modificar/cliente-modificar.component';
 import { ClienteConsultaModalComponent } from './cliente/modals/cliente-consulta-modal/cliente-consulta-modal.component';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
+import { ProductoConsultaComponent } from './producto/producto-consulta/producto-consulta.component';
+import { ProductoRegistroComponent } from './producto/producto-registro/producto-registro.component';
+import { ProductoService } from './services/producto.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,9 @@ import { JwtInterceptorService } from './services/jwt-interceptor.service';
     AlertModalComponent,
     FiltroClientePipe,
     ClienteModificarComponent,
-    ClienteConsultaModalComponent
+    ClienteConsultaModalComponent,
+    ProductoConsultaComponent,
+    ProductoRegistroComponent
     // NgbCollapse,NgbDropdown,NgbDropdownMenu,NgbDropdownToggle,NgbDropdownItem,NgbDropdownAnchor, AlertModalComponent,
     // NgbActiveModal,NgbModalConfig,NgbModalRef,NgbModal
   ],
@@ -61,7 +67,7 @@ import { JwtInterceptorService } from './services/jwt-interceptor.service';
     NgbModule
   ],
   entryComponents: [AlertModalComponent,ClienteConsultaModalComponent],
-  providers: [ClienteService, VentaService,
+  providers: [ClienteService, VentaService, ProductoService, UserService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
   ],
   bootstrap: [AppComponent]

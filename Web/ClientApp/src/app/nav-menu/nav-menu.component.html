@@ -90,6 +90,13 @@
         </div>
       </li>
       <li ngbDropdown class="nav-item" *ngIf="currentUser">
+        <a href (click)="false" class="nav-link" ngbDropdownToggle>Productos</a>
+        <div ngbDropdownMenu>
+          <a ngbDropdownItem [routerLink]="'productoConsulta'" (click)="isMenuCollapsed = true"> Consulta de Producto</a>
+          <a ngbDropdownItem [routerLink]="'productoRegistro'" (click)="isMenuCollapsed = true"> Registro de Producto</a> 
+        </div>
+      </li>
+      <li ngbDropdown class="nav-item" *ngIf="currentUser">
         <a href (click)="false" class="nav-link" ngbDropdownToggle>Clientes</a>
         <div ngbDropdownMenu>
           <a ngbDropdownItem [routerLink]="'clienteConsulta'" (click)="isMenuCollapsed = true"> Consulta de Clientes</a>

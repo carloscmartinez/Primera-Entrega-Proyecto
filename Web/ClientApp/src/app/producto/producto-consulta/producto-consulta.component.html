@@ -1,0 +1,31 @@
+<body>
+  <div class="row">
+    <div class="col-6">
+        <h1>Productos</h1>
+    <!--     <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Buscar"> -->
+    </div>
+  </div>
+  <hr>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Id Producto</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Precio</th>
+        <!-- <th scope="col">Ver</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos; index as i">
+        <td data-label="Nº" scope="row">{{ i + 1 }}</td>   
+        <td data-label="Role"class="text-left text-capitalize">{{ producto.productoId }}</td>
+        <td data-label="Nombre"class="text-left text-capitalize">{{ producto.nombre }}</td>
+        <td data-label="Precio"class="text-left text-capitalize">{{ producto.precio }}</td>
+        <!-- <td><a routerLink="/usuarioModificar/{{usuario.usuarioId}}">ver</a></td>   |filtroUsuario:searchText-->
+        
+      </tr>
+    </tbody>
+  </table>
+</body>
