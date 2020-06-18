@@ -198,3 +198,32 @@ body{
     }
   }
   /* fin registro */
+  .modal-header {
+    background: #1861ac;
+    color: white;
+}
+.table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.table td, .table th{
+  padding: 7px 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 13px;
+}
+.table th{
+  font-weight: lighter;
+  background-color: #1b6ec2;
+  color: #ffffff;
+}
+.table tbody tr:nth-child(even){
+  background-color: rgb(219, 235, 241);
+}
+.container{
+  margin-top: 7px;
+  border: 0;
+  padding: 15px;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.1);
+}

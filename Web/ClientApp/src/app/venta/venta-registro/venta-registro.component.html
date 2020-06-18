@@ -1,10 +1,14 @@
 <body>
     <div class="container">
       <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-          <div class="card card-signin my-5">
+        <!-- <div class="col-sm-9 col-md-7 col-lg-5 mx-auto"> -->
+          <!-- <div class="card card-signin my-5"> -->
             <div class="card-body"> 
-              <h5 class="card-title text-center">Registro de Ventas</h5>
+              
+              <div class="row">
+              
+              <div class="col-sm-9 col-md-5 col-lg-4 mx-auto">
+                <h5 class="card-title text-center">Registro de Ventas</h5><br>
               <form class="form-signin" [formGroup]="formGroup">
                 <!-- <h5 >Registo de Ventas</h5><br> -->
                 <!-- <div class="form-label-group">
@@ -21,18 +25,21 @@
                     </div>
                     <label for="fecha">Fecha</label>
                   </div>
-  
-                <div class="form-label-group">
+                  <div class="row">
+                <div class="form-label-group col-9">
                   <input type="number" id="clienteId" name="clienteId" formControlName="clienteId" class="form-control" placeholder="Id del Cliente" (blur)="buscarCliente()" (dblclick)="openModalCliente()" required [ngClass]="{ 'is-invalid':  control.clienteId.errors}"/>
                   <div *ngIf="control.clienteId.errors" class="invalid-feedback">           
                     <div *ngIf="control.clienteId.errors.required">Se require el Id del cliente</div>
                     <!-- <div *ngIf="control.numeroPaquetes.errors.min">Se require el Id del cliente</div> -->
                   </div>
                   <label for="clienteId">Id. Cliente</label>
-                  <div class="col-md-1">
-                    <label> </label>
-                    <button class="btn btn-primary" type="button" (click)="openModalCliente()">...</button>
-                  </div>
+                  
+                </div>
+                <div class="col-1">
+                  <!-- <label (click)="openModalCliente()">... </label> -->
+                  <button class="btn btn-primary" type="button" (click)="openModalCliente()">...</button> 
+                </div>
+               </div>
                   <div class="form-label-group">
                     <label >Nombres:</label>
                     <input type="text" readonly formControlName="clienteNombre" class="form-control text-right text-capitalize"/>
@@ -41,16 +48,17 @@
                     <label>Apellidos:</label>
                     <input type="text" readonly formControlName="clienteApellido" class="form-control text-right text-capitalize"/>
                   </div>
-                </div>
-
+                
                 <div class="form-label-group">
                     <input type="text" id="estado" name="estado" formControlName="estado" class="form-control" placeholder="Nº de Paquetes"  required [ngClass]="{ 'is-invalid':  control.estado.errors}"/>
                     <div *ngIf="control.estado.errors" class="invalid-feedback">           
-                      <div *ngIf="control.estado.errors.required">Se require el Numero de paquetes</div>
+                      <div *ngIf="control.estado.errors.required">Se require el estado de la venta</div>
                       <!-- <div *ngIf="control.estado.errors.min">Se require el Numero de paquetes</div> -->
                     </div>
                     <label for="estado"> Estado</label>
                 </div>
+
+
 
                 <!-- <div class="form-label-group">
                     <input type="number" id="total" name="total" formControlName="total" class="form-control" placeholder="total" (blur)="ventaTotal()" required [ngClass]="{ 'is-invalid':  control.total.errors}"/>
@@ -68,36 +76,42 @@
                     </div>
                     <label for="totalVenta">Total Venta</label>
                 </div><br> -->
+
+                <!-- Button trigger modal -->
+                <div class="form-label-group">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  Agregar Producto
+                </button>
+              </div>
                 <div class="form-group">
                   <label>Total Venta :  </label>
                   {{ventaTotal}}
                 </div><br>
 
 
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                  +
-                </button>
+                
 
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="onSubmit()">Registrar</button>
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="onSubmit()">Registrar Venta</button>
                 <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="reset" (click)="onReset()">Cancelar</button>
                 
                 <!--<button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
                 <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
                 -->
-              </form>
+              </form></div>
               <!--  -->
               
                <!-- <div class="custom-control custom-checkbox mb-3">
                   <input type="checkbox" class="custom-control-input" id="customCheck1">
                   <label class="custom-control-label" for="customCheck1">Remember password</label>
                 </div>-->
-               
+                <div class="col-sm-9 col-md-7 col-lg-7 mx-auto">
+                  <h5 class="card-title text-center">Detalles de la Venta</h5><br>
                 <table class="table table-hover">
                   <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Id Producto</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Producto</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Total</th>
@@ -106,77 +120,110 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let detalleVenta of detallesVenta; index as i">
+                  <tr *ngFor="let detalleVentaView of detallesVentaViews; index as i">
                     <td data-label="Nº" scope="row">{{ i + 1 }}</td>
-                    <td class="text-right">{{ detalleVenta.productoId | number }}</td>
-                    <td class="text-right">{{ detalleVenta.cantidad | number }}</td>
-                    <td class="text-right">{{ detalleVenta.precio | number }}</td>
-                    <td class="text-right">{{ detalleVenta.totalVenta | number }}</td>
+                    <td class="text-right">{{ detalleVentaView.productoId | number }}</td>
+                    <td class="text-right">{{ detalleVentaView.nombreProducto }}</td>
+                    <td class="text-right">{{ detalleVentaView.cantidad | number }}</td>
+                    <td class="text-right">{{ detalleVentaView.precio | number }}</td>
+                    <td class="text-right">{{ detalleVentaView.totalVenta | number }}</td>
   
                   </tr>
                   </tbody>
                 </table>
-              
-
+              </div>
+            </div>
               <!-- -------------------------------------------------------- -->
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg ">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Detalle de la Venta</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Detalle de Venta</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
                       <!-- -------------------------------------------------------- -->
-                      <form class="form-signin" [formGroup]="formGroupDetalle">
-                        <div class="form-label-group">
-                          <input type="number" id="productoId" name="productoId" formControlName="productoId" class="form-control" placeholder="productoId"  required [ngClass]="{ 'is-invalid':  controlDetalle.productoId.errors}"/>
-                          <div *ngIf="controlDetalle.productoId.errors" class="invalid-feedback">           
-                            <div *ngIf="controlDetalle.productoId.errors.required">Se require  valor de Paquete</div>
-                          </div>
-                          <label for="productoId">Id Producto</label>
+                      <div class="row">
+              
+                       <div class="col-sm-9 col-md-5 col-lg-5 mx-auto">
+                                          <form class="form-signin" [formGroup]="formGroupDetalle">
+                                            <div class="form-label-group">
+                                              <input type="number" id="productoId" name="productoId" formControlName="productoId" class="form-control" placeholder="productoId"  required [ngClass]="{ 'is-invalid':  controlDetalle.productoId.errors}"/>
+                                              <div *ngIf="controlDetalle.productoId.errors" class="invalid-feedback">           
+                                                <div *ngIf="controlDetalle.productoId.errors.required">Se require el id del producto</div>
+                                              </div>
+                                              <label for="productoId">Id Producto</label>
+                                          </div>
+                                          <div class="form-group">
+                                            <label>Nombre :  </label>
+                                            {{nombreProducto}}
+                                          </div>
+                            
+                                        <div class="form-label-group">
+                                          <input type="number" id="cantidad" name="cantidad" formControlName="cantidad" class="form-control" placeholder="cantidad" (blur)="totalDetalleVenta()" required [ngClass]="{ 'is-invalid':  controlDetalle.cantidad.errors}"/>
+                                          <div *ngIf="controlDetalle.cantidad.errors" class="invalid-feedback">           
+                                            <div *ngIf="controlDetalle.cantidad.errors.required">Se require la cantidad</div>
+                                          </div>
+                                          <label for="cantidad">Cantidad</label>
+                                      </div>
+                                      <div class="form-label-group">
+                                        <input type="number" id="precio" name="precio" formControlName="precio" class="form-control" placeholder="precio" (blur)="totalDetalleVenta()" required [ngClass]="{ 'is-invalid':  controlDetalle.precio.errors}"/>
+                                        <div *ngIf="controlDetalle.precio.errors" class="invalid-feedback">           
+                                          <div *ngIf="controlDetalle.precio.errors.required">Se require el precio</div>
+                                        </div>
+                                        <label for="precio">Precio</label>
+                                    </div>
+                              
+                                    <div class="form-label-group">
+                                      <input type="number" id="totalVenta" name="totalVenta" readonly formControlName="totalVenta" class="form-control" placeholder="totalVenta"  />
+                                      <!-- <div *ngIf="controlDetalle.totalVenta.errors" class="invalid-feedback">           
+                                        <div *ngIf="controlDetalle.totalVenta.errors.required">Se require  valor de Paquete</div>
+                                      </div> -->
+                                      <label for="totalVenta">totalVenta</label>
+                                  </div>
+                                  <!-- <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="agregarDetalle()">Agregar</button> -->
+                                </form>
+                        </div>
+
+                        <div class="col-sm-9 col-md-7 col-lg-7 mx-auto">
+                          <h5 class="card-title text-center">Productos</h5>
+                          <table class="table table-hover">
+                            <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Id Producto</th>
+                              <th scope="col">Nombre</th>
+                              <th scope="col">Precio</th>                      
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let producto of productos; index as i;"(click)="actualizaProducto(producto)">
+                              <td data-label="Nº" scope="row">{{ i + 1 }}</td>
+                              <td class="text-right">{{ producto.productoId | number }}</td> 
+                              <td class="text-right">{{ producto.nombre }}</td>
+                              <td class="text-right">{{ producto.precio | number }}</td>           
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+
                       </div>
-        
-                    <div class="form-label-group">
-                      <input type="number" id="cantidad" name="cantidad" formControlName="cantidad" class="form-control" placeholder="cantidad"  required [ngClass]="{ 'is-invalid':  controlDetalle.cantidad.errors}"/>
-                      <div *ngIf="controlDetalle.cantidad.errors" class="invalid-feedback">           
-                        <div *ngIf="controlDetalle.cantidad.errors.required">Se require  valor de Paquete</div>
-                      </div>
-                      <label for="cantidad">Cantidad</label>
-                  </div>
-                  <div class="form-label-group">
-                    <input type="number" id="precio" name="precio" formControlName="precio" class="form-control" placeholder="precio"  required [ngClass]="{ 'is-invalid':  controlDetalle.precio.errors}"/>
-                    <div *ngIf="controlDetalle.precio.errors" class="invalid-feedback">           
-                      <div *ngIf="controlDetalle.precio.errors.required">Se require  valor de Paquete</div>
-                    </div>
-                    <label for="precio">Precio</label>
-                </div>
-          
-                <div class="form-label-group">
-                  <input type="number" id="totalVenta" name="totalVenta" formControlName="totalVenta" class="form-control" placeholder="totalVenta"  required [ngClass]="{ 'is-invalid':  controlDetalle.totalVenta.errors}"/>
-                  <div *ngIf="controlDetalle.totalVenta.errors" class="invalid-feedback">           
-                    <div *ngIf="controlDetalle.totalVenta.errors.required">Se require  valor de Paquete</div>
-                  </div>
-                  <label for="totalVenta">totalVenta</label>
-              </div>
-              <!-- <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="agregarDetalle()">Agregar</button> -->
-            </form>
                       <!-- -------------------------------------------------------- -->
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary" (click)="agregarDetalle()">Save changes</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn btn-primary" (click)="agregarDetalle()">Agregar</button>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- ----------------------------------------------------------- -->
             </div>
-          </div>
+          <!-- </div> -->
         </div>
-      </div>
+      <!-- </div> -->
     </div> 
   </body>

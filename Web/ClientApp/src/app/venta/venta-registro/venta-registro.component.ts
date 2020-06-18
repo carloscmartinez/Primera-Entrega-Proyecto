@@ -8,6 +8,9 @@ import { VentaService } from 'src/app/services/venta.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Cliente } from 'src/app/cliente/models/cliente';
 import { ClienteConsultaModalComponent } from 'src/app/cliente/modals/cliente-consulta-modal/cliente-consulta-modal.component';
+import { ProductoService } from 'src/app/services/producto.service';
+import { Producto } from 'src/app/producto/models/producto';
+import { DetalleVentaViewModel } from '../models/detalle-venta-view-model';
 
 @Component({
   selector: 'app-venta-registro',
@@ -17,29 +20,36 @@ import { ClienteConsultaModalComponent } from 'src/app/cliente/modals/cliente-co
 export class VentaRegistroComponent implements OnInit {
   venta: Venta;
   detallesVenta: DetalleVenta[];
+  detallesVentaViews: DetalleVentaViewModel[];
   //detallesfVenta = new DetalleVenta[];
   detalleVenta: DetalleVenta;
   formGroup: FormGroup;
   formGroupDetalle: FormGroup;
   submitted= false
- ventaTotal:number;
+  ventaTotal:number;
+  productos: Producto[];
+  nombreProducto:string;
 
   constructor(
     private ventaService: VentaService,
     private clienteService: ClienteService,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private productoService: ProductoService
   ) { }
 
   ngOnInit() {
     this.buildForm();
+    this.productoService.get().subscribe(result => {
+    this.productos = result;});
   }
 
   private buildForm() {
         this.venta= new Venta();
         this.detalleVenta= new DetalleVenta();
         let myDate = new Date();
-        this.detallesVenta = [];       
+        this.detallesVenta = [];
+        this.detallesVentaViews = [];       
         this.venta.fecha = myDate;
         this.venta.estado= "";
         this.venta.total= 0;
@@ -67,7 +77,7 @@ export class VentaRegistroComponent implements OnInit {
       productoId: [this.detalleVenta.productoId, Validators.required],
       cantidad: [this.detalleVenta.cantidad, Validators.required],
       precio: [this.detalleVenta.precio, Validators.required],
-      totalVenta: [this.detalleVenta.totalVenta, Validators.required],
+      totalVenta: [''],
     });
       }
     get control() { 
@@ -86,7 +96,17 @@ export class VentaRegistroComponent implements OnInit {
       detalle.productoId= this.formGroupDetalle.value.productoId;
       this.detallesVenta.push(detalle);
       this.ventaTotal=this.ventaTotal+detalle.totalVenta;
+      
+      //Detalles con nombre del producto para mostrar en la tabla
+      let detalleView = new DetalleVentaViewModel();
+      detalleView.cantidad = this.formGroupDetalle.value.cantidad;
+      detalleView.precio= this.formGroupDetalle.value.precio; 
+      detalleView.totalVenta= this.formGroupDetalle.value.totalVenta; 
+      detalleView.productoId= this.formGroupDetalle.value.productoId;
+      detalleView.nombreProducto= this.nombreProducto;
+      this.detallesVentaViews.push(detalleView);
       this.formGroupDetalle.reset();
+      this.nombreProducto='';
     }
     //buscar el cliente 
     buscarCliente() {
@@ -123,12 +143,25 @@ export class VentaRegistroComponent implements OnInit {
        }
        this.add();
       // this.formGroup.reset();
-       
+    this.submitted = false;
+    this.formGroup.reset();
+    this.ventaTotal=0;
+    this.detallesVenta=[];
+    this.formGroupDetalle.reset();
+    //this.onReset();
     }
     //calcula el total de la venta para ser mostrada en el formulario
-  //  ventaTotal(){
-  //   this.venta.totalVenta =this.formGroup.controls.numeroPaquetes.value*this.formGroup.controls.valorPaquete.value;
-  //  }   
+   totalDetalleVenta(){
+    var detalle =this.formGroupDetalle.controls.precio.value*this.formGroupDetalle.controls.cantidad.value;
+    this.controlDetalle['totalVenta'].setValue(detalle);
+   } 
+   //pasa los valores del producto al detalle de venta  
+   actualizaProducto(producto: Producto){
+    
+    this.controlDetalle['productoId'].setValue(producto.productoId);
+    this.controlDetalle['precio'].setValue(producto.precio);
+    this.nombreProducto=producto.nombre;
+   } 
       
 
   add() {
@@ -148,12 +181,12 @@ export class VentaRegistroComponent implements OnInit {
     
   }
 
-  onReset() {
+ /*  onReset() {
     this.submitted = false;
     this.formGroup.reset();
     this.ventaTotal=0;
     this.detallesVenta=[];
     this.formGroupDetalle.reset();
-}
+} */
 
 }
